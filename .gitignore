@@ -1,0 +1,10 @@
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+# Node
+node_modules/
+# Segreti e sistema
+.env
+.DS_Store
