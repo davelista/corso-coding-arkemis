@@ -1,6 +1,7 @@
 Mi chiamo Federico Maria Calato,
 ho 25 anni e vivo a Vicari (PA).
 
+Mac.
 
 [OK] git · 2.39.5
 [OK] git config · Federico Maria Calato <calatofederico48@gmail.com>
