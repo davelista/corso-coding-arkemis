@@ -1,7 +1,7 @@
 import sys
 
-def calcola(f, c):
-    inventario = open(f).read().split("\n")
+def calcola(csv, codice_sconto):
+    inventario = open(csv).read().split("\n")
     totale = 0
     print("CARRELLO")
     # scorro i prodotti
@@ -14,40 +14,42 @@ def calcola(f, c):
             quantità = int(splitted[2])
             if quantità >= 3:
                 # applico lo sconto del 10%
-                sconto = prezzo * quantità - prezzo * quantità * 0.1
+                totale_lordo = prezzo * quantità 
+                sconto_applicato = totale_lordo * 0.1
+                totale_scontato = totale_lordo - sconto_applicato
                 print(splitted[0] + " x" + str(quantità) + ": " + "%.2f" % sconto + " (-10%)")
             else:
-                sconto = prezzo * quantità
+                totale_scontato = totale_lordo
                 print(splitted[0] + " x" + str(quantità) + ": " + "%.2f" % sconto)
             # aggiungo al totale
-            totale += sconto
+            totale += totale_scontato
         except:
             pass
     print("Subtotale: " + "%.2f" % totale)
-    s = 0
+    sconto = 0
     # controllo il codice
-    if c == "BENVENUTO":
+    if codice_sconto == "BENVENUTO":
         if totale >= 30:
-            s = 5
-            print("Codice BENVENUTO: -" + "%.2f" % s)
+            sconto = 5
+            print("Codice BENVENUTO: -" + "%.2f" % sconto)
         else:
             print("Codice BENVENUTO: serve una spesa di almeno 30.00")
-    elif c == "SCONTO10":
+    elif codice_sconto == "SCONTO10":
         if totale >= 40:
-            s = totale * 0.1
-            print("Codice SCONTO10: -" + "%.2f" % s)
+            sconto = totale * 0.1
+            print("Codice SCONTO10: -" + "%.2f" % sconto)
         else:
             print("Codice SCONTO10: serve una spesa di almeno 40.00")
-    elif c != "":
-        print("Codice " + c + " sconosciuto")
-    t2 = totale - s
+    elif codice_sconto != "":
+        print("Codice " + codice_sconto + " sconosciuto")
+    t2 = totale - sconto
     # spedizione
     if t2 < 50:
-        sp = 4.9
+        spedizione = 4.9
     else:
-        sp = 0
-    print("Spedizione: " + "%.2f" % sp)
-    print("Totale: " + "%.2f" % (t2 + sp))
+        spedizione = 0
+    print("Spedizione: " + "%.2f" % spedizione)
+    print("Totale: " + "%.2f" % (t2 + spedizione))
 
 if len(sys.argv) > 2:
     calcola(sys.argv[1], sys.argv[2])
