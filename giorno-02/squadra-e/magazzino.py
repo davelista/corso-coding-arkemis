@@ -1,11 +1,11 @@
 import sys
 
-def inventario_magazzino(p):
+def inventario_magazzino(dati_inventario):
     magazzino = []
-    for riga_csv in open(p).readlines()[1:]:
+    for riga_csv in open(dati_inventario).readlines()[1:]:
         try:
-            articolo = riga_csv.strip().split(",")
-            magazzino.append([articolo[0], articolo[1], int(articolo[2]), int(articolo[3]), int(articolo[4])])
+            codice, prodotto, scorta, soglia, consumo = riga_csv.strip().split(",")
+            magazzino.append([codice, prodotto, int(scorta), int(soglia), int(consumo)])
         except:
             pass
     articoli_da_riordinare = []
