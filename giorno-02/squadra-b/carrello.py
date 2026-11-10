@@ -52,3 +52,5 @@ if len(sys.argv) > 2:
     calcola(sys.argv[1], sys.argv[2])
 else:
     calcola(sys.argv[1], "")
+
+#ciao 
