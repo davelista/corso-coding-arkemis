@@ -1,0 +1,6 @@
+codice,prodotto,scorta,soglia,consumo_giornaliero
+M01,Carta A4,120,200,40
+M02,Toner,4,5,1
+M03,Buste,500,300,50
+M04,Graffette,15,60,8
+M05,Pile AA,75,80,5
