@@ -1,33 +1,33 @@
 import sys
 
-def elabora(p):
-    l = []
-    for riga in open(p).readlines()[1:]:
+def inventario_magazzino(p):
+    magazzino = []
+    for riga_csv in open(p).readlines()[1:]:
         try:
-            c = riga.strip().split(",")
-            l.append([c[0], c[1], int(c[2]), int(c[3]), int(c[4])])
+            articolo = riga_csv.strip().split(",")
+            magazzino.append([articolo[0], articolo[1], int(articolo[2]), int(articolo[3]), int(articolo[4])])
         except:
             pass
-    r = []
-    ok = 0
-    for x in l:
+    articoli_da_riordinare = []
+    articoli_presenti = 0
+    for codice, prodotto, scorta, soglia, consumo in magazzino:
         # se è sotto la soglia
-        if x[2] < x[3]:
-            q = x[3] * 2 - x[2]
-            if q % 10 != 0:
-                q = q + (10 - q % 10)
-            g = x[2] // x[4]
-            if g < 3:
-                r.append(x[0] + " " + x[1] + ": scorta " + str(x[2]) + ", soglia " + str(x[3]) + ", ordina " + str(q) + " (URGENTE: " + str(g) + " giorni)")
+        if scorta < soglia:
+            qta_da_ordinare = soglia * 2 - scorta
+            if qta_da_ordinare % 10 != 0:
+                qta_da_ordinare = qta_da_ordinare + (10 - qta_da_ordinare % 10)
+            giorni_esaurimento_scorte = scorta // consumo
+            if giorni_esaurimento_scorte < 3:
+                articoli_da_riordinare.append(codice + " " + prodotto + ": scorta " + str(scorta) + ", soglia " + str(soglia) + ", ordina " + str(qta_da_ordinare) + " (URGENTE: " + str(giorni_esaurimento_scorte) + " giorni)")
             else:
-                r.append(x[0] + " " + x[1] + ": scorta " + str(x[2]) + ", soglia " + str(x[3]) + ", ordina " + str(q) + " (" + str(g) + " giorni)")
+                articoli_da_riordinare.append(codice + " " + prodotto + ": scorta " + str(scorta) + ", soglia " + str(soglia) + ", ordina " + str(qta_da_ordinare) + " (" + str(giorni_esaurimento_scorte) + " giorni)")
         else:
-            ok = ok + 1
+            articoli_presenti = articoli_presenti + 1
     print("DA RIORDINARE")
-    if len(r) == 0:
+    if len(articoli_da_riordinare) == 0:
         print("niente")
-    for y in r:
-        print("- " + y)
-    print("SCORTA SUFFICIENTE: " + str(ok) + " prodotti")
+    for articolo in articoli_da_riordinare:
+        print("- " + articolo)
+    print("SCORTA SUFFICIENTE: " + str(articoli_presenti) + " prodotti")
 
-elabora(sys.argv[1])
+inventario_magazzino(sys.argv[1])
