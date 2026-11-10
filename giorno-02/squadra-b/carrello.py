@@ -1,45 +1,46 @@
 import sys
 
 def calcola(f, c):
-    r = open(f).read().split("\n")
-    t = 0
+    inventario = open(f).read().split("\n")
+    totale = 0
     print("CARRELLO")
-    # per ogni riga
-    for x in r[1:]:
-        if x == "":
+    # scorro i prodotti
+    for prodotto in inventario[1:]:
+        if prodotto == "":
             continue
         try:
-            y = x.split(",")
-            p = float(y[1])
-            q = int(y[2])
-            if q >= 3:
-                tot = p * q - p * q * 0.1
-                print(y[0] + " x" + str(q) + ": " + "%.2f" % tot + " (-10%)")
+            splitted = prodotto.split(",")
+            prezzo = float(splitted[1])
+            quantità = int(splitted[2])
+            if quantità >= 3:
+                # applico lo sconto del 10%
+                sconto = prezzo * quantità - prezzo * quantità * 0.1
+                print(splitted[0] + " x" + str(quantità) + ": " + "%.2f" % sconto + " (-10%)")
             else:
-                tot = p * q
-                print(y[0] + " x" + str(q) + ": " + "%.2f" % tot)
+                sconto = prezzo * quantità
+                print(splitted[0] + " x" + str(quantità) + ": " + "%.2f" % sconto)
             # aggiungo al totale
-            t = t + tot
+            totale += sconto
         except:
             pass
-    print("Subtotale: " + "%.2f" % t)
+    print("Subtotale: " + "%.2f" % totale)
     s = 0
     # controllo il codice
     if c == "BENVENUTO":
-        if t >= 30:
+        if totale >= 30:
             s = 5
             print("Codice BENVENUTO: -" + "%.2f" % s)
         else:
             print("Codice BENVENUTO: serve una spesa di almeno 30.00")
     elif c == "SCONTO10":
-        if t >= 40:
-            s = t * 0.1
+        if totale >= 40:
+            s = totale * 0.1
             print("Codice SCONTO10: -" + "%.2f" % s)
         else:
             print("Codice SCONTO10: serve una spesa di almeno 40.00")
     elif c != "":
         print("Codice " + c + " sconosciuto")
-    t2 = t - s
+    t2 = totale - s
     # spedizione
     if t2 < 50:
         sp = 4.9
