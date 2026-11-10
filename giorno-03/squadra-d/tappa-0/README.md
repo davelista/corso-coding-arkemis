@@ -13,11 +13,15 @@ Il **numero 1**, nella sua PR, scrive i tre nomi nella tabella di `squadra.md`. 
 
 ```bash
 git switch main
-git pull
-git switch -c d-anna-t0              # squadra, nome, tappa
+git pull                             # scarica anche i branch delle squadre
+git switch squadra-d-hogwarts        # il branch della tua squadra
+git switch -c d-anna                 # il tuo branch: lettera della squadra e nome
 cd ~/corso-coding-arkemis/giorno-03/squadra-d/tappa-0
 cp MODELLO.py anna.py                # copia MODELLO.py in un file nuovo, anna.py
 ```
+
+Oggi ogni squadra ha il suo branch, `squadra-d-hogwarts`: è il «main» della squadra.
+I vostri branch partono da lì e le vostre PR tornano lì. Su `main` unisce solo il docente.
 
 `cp` vuol dire *copy*, copia: il primo nome è il file da copiare, il secondo il file nuovo che nasce.
 `MODELLO.py` resta com'è: d'ora in poi lavorate solo su `anna.py`.
@@ -29,10 +33,16 @@ cp MODELLO.py anna.py                # copia MODELLO.py in un file nuovo, anna.p
 ```bash
 git add anna.py
 git commit -m "Tappa 0: anna"
-git push -u origin d-anna-t0
+git push -u origin d-anna
 ```
 
-4. Su GitHub: **Compare & pull request**, poi **Create pull request**.
+4. La pull request, **verso il branch della squadra**:
+
+```bash
+gh pr create --base squadra-d-hogwarts --fill
+```
+
+   Oppure su GitHub: **Compare & pull request**, in alto cambiate **base** da `main` a `squadra-d-hogwarts`, poi **Create pull request**.
 5. Il compagno la legge, scrive un commento, **Approve** e **Merge pull request**.
 
 Il giro completo, comando per comando: [GIT.md](../../GIT.md).

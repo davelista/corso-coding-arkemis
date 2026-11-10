@@ -2,22 +2,22 @@
 
 Sabato a Hogsmeade. Burrobirra per tutti: si legge il menu, si contano le parole delle recensioni e si prepara la lista per il tavolo.
 
-| Chi | Il tuo file | Nella storia |
-|---|---|---|
-| Numero 1 | `conta_parole.py` | Le recensioni della locanda |
-| Numero 2 | `totale_ordine.py` | L'ordine al tavolo |
-| Numero 3 | `per_iniziale.py` | La lista per il tavolo |
+| Chi | Il tuo file | Il tuo branch | Nella storia |
+|---|---|---|---|
+| Numero 1 | `conta_parole.py` | `a-conta-parole` | Le recensioni della locanda |
+| Numero 2 | `totale_ordine.py` | `a-totale-ordine` | L'ordine al tavolo |
+| Numero 3 | `per_iniziale.py` | `a-per-iniziale` | La lista per il tavolo |
 
 ## Come si fa
 
-Sempre gli stessi passi. L'esempio è quello di Anna, numero 1 della squadra A: al posto di `anna` e del file mettete il vostro nome e il vostro file.
+Sempre gli stessi passi. L'esempio è quello del numero 1 della squadra A: al posto del file e del branch mettete i vostri (sono nella tabella qui sopra).
 
-**1. Il branch nuovo**
+**1. Il branch nuovo, preso dal branch della squadra**
 
 ```bash
-git switch main
+git switch squadra-a-hogwarts
 git pull
-git switch -c a-anna-t4
+git switch -c a-conta-parole
 cd ~/corso-coding-arkemis/giorno-03/squadra-a/tappa-4-dizionari
 ```
 
@@ -30,10 +30,16 @@ cd ~/corso-coding-arkemis/giorno-03/squadra-a/tappa-4-dizionari
 ```bash
 git add conta_parole.py
 git commit -m "Tappa 4: conta_parole"
-git push -u origin a-anna-t4
+git push -u origin a-conta-parole
 ```
 
-**5. La pull request.** Su GitHub: **Compare & pull request**, poi **Create pull request**.
+**5. La pull request, verso il branch della squadra**
+
+```bash
+gh pr create --base squadra-a-hogwarts --fill
+```
+
+Oppure su GitHub: **Compare & pull request**, in alto cambia **base** da `main` a `squadra-a-hogwarts`, poi **Create pull request**.
 
 **6. La review.** Apri la PR del compagno che ti tocca: un commento, **Approve**, poi **Merge pull request**.
 

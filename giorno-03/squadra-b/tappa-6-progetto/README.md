@@ -1,52 +1,83 @@
-# Tappa 6 · La fine dell'anno
+# Tappa 6 · Il Club dei Duellanti
 
-Ultimo giorno prima delle vacanze: si fanno i conti dell'anno, in galeoni. Tre pezzi, uno a testa, che insieme fanno un programma vero.
+Fine dell'anno: Allock apre il Club dei Duellanti e Harry sfida Draco. Ogni incantesimo è una funzione: tre pezzi, uno a testa, che insieme raccontano il duello e dicono chi vince.
 
-| Chi | Il tuo file | Nella storia |
-|---|---|---|
-| Numero 1 | `leggi.py` | Leggere il registro delle spese |
-| Numero 2 | `calcola.py` | I totali per categoria |
-| Numero 3 | `stampa.py` | Il report di fine anno |
+| Chi | Il tuo file | Il tuo branch | Nella storia |
+|---|---|---|---|
+| Numero 1 | `leggi.py` | `b-leggi` | Le mosse del duello |
+| Numero 2 | `incantesimi.py` | `b-incantesimi` | Il libro degli incantesimi |
+| Numero 3 | `annuncio.py` | `b-annuncio` | Chi vince? |
 
 ## Il programma
 
-Durante l'anno a Hogwarts la squadra ha segnato le spese in `spese.csv`. Il programma `report.py` (già scritto, non si tocca) le legge e stampa il totale per categoria:
+Al Club dei Duellanti, Harry e Draco si sfidano. Le mosse sono scritte in `duello.csv`, una per riga:
 
 ```text
-$ python report.py spese.csv
-SPESE DELL'ANNO A HOGWARTS
-dolci: 51.50
-pozioni: 15.00
-treno: 49.00
-TOTALE: 115.50
+turno,mago,bersaglio,incantesimo
+1,Draco,Harry,stupeficium
+2,Harry,Draco,expelliarmus
+...
 ```
 
-`report.py` usa tre funzioni, una per persona. Ognuno ha il suo test e può farlo diventare verde da solo.
-`test_report.py` invece è il test **di squadra**: diventa verde solo quando tutte e tre le PR sono su main.
-Quando lo è, fate `git switch main`, `git pull` e lanciate `python report.py spese.csv`.
+Le regole: tutti partono da **50 punti**. Ogni incantesimo toglie punti al bersaglio,
+e i punti non vanno mai sotto zero. Un incantesimo che il libro non conosce fa cilecca: non toglie niente.
+
+| Incantesimo | Punti tolti |
+|---|---|
+| expelliarmus | 10 |
+| stupeficium | 20 |
+| petrificus totalus | 30 |
+
+**Un incantesimo è una funzione**: riceve i punti del bersaglio e restituisce (return) quelli che gli restano.
+
+```python
+def expelliarmus(punti):
+    return punti - 10       # expelliarmus(50) -> 40
+```
+
+Il programma `duello.py` (già scritto, non si tocca) legge le mosse, lancia gli incantesimi e annuncia chi vince:
+
+```text
+$ python duello.py duello.csv
+Turno 1: Draco lancia stupeficium su Harry, che resta con 30 punti
+...
+CLUB DEI DUELLANTI
+Draco: 0 punti
+Harry: 20 punti
+VINCE: Harry
+```
+
+`duello.py` usa tre pezzi, uno per persona. Ognuno ha il suo test e può farlo diventare verde da solo.
+`test_duello.py` invece è il test **di squadra**: diventa verde solo quando tutte e tre le PR sono sul branch della squadra.
+Quando lo è: `git switch squadra-b-hogwarts`, `git pull` e `python duello.py duello.csv`.
 
 I tre pezzi si passano i dati così:
 
 ```text
-spese.csv ──leggi_spese──▶ lista di dizionari ──totali_per_categoria──▶ dizionario ──formatta_report──▶ testo
+duello.csv ──leggi_mosse──▶ lista di mosse ──lancia (a ogni mossa)──▶ punti di ogni mago ──annuncia──▶ testo
 ```
 
-Un elemento della lista di `leggi_spese` è fatto così:
+Una mossa, cioè un elemento della lista di `leggi_mosse`, è fatta così:
 
 ```python
-{"data": "2026-09-01", "persona": "Harry", "categoria": "treno", "importo": 24.5}
+{"turno": 1, "mago": "Draco", "bersaglio": "Harry", "incantesimo": "stupeficium"}
 ```
+
+## Se finite prima
+
+- Scrivete il vostro duello in un file nuovo, per esempio `ron-hermione.csv`, e lanciatelo: `python duello.py ron-hermione.csv`.
+- Aggiungete un incantesimo al libro: `rictusempra` (il solletico) toglie 5 punti. Ricordatevi di aggiungerlo anche in `lancia`.
 
 ## Come si fa
 
-Sempre gli stessi passi. L'esempio è quello di Anna, numero 1 della squadra B: al posto di `anna` e del file mettete il vostro nome e il vostro file.
+Sempre gli stessi passi. L'esempio è quello del numero 1 della squadra B: al posto del file e del branch mettete i vostri (sono nella tabella qui sopra).
 
-**1. Il branch nuovo**
+**1. Il branch nuovo, preso dal branch della squadra**
 
 ```bash
-git switch main
+git switch squadra-b-hogwarts
 git pull
-git switch -c b-anna-t6
+git switch -c b-leggi
 cd ~/corso-coding-arkemis/giorno-03/squadra-b/tappa-6-progetto
 ```
 
@@ -59,10 +90,16 @@ cd ~/corso-coding-arkemis/giorno-03/squadra-b/tappa-6-progetto
 ```bash
 git add leggi.py
 git commit -m "Tappa 6: leggi"
-git push -u origin b-anna-t6
+git push -u origin b-leggi
 ```
 
-**5. La pull request.** Su GitHub: **Compare & pull request**, poi **Create pull request**.
+**5. La pull request, verso il branch della squadra**
+
+```bash
+gh pr create --base squadra-b-hogwarts --fill
+```
+
+Oppure su GitHub: **Compare & pull request**, in alto cambia **base** da `main` a `squadra-b-hogwarts`, poi **Create pull request**.
 
 **6. La review.** Apri la PR del compagno che ti tocca: un commento, **Approve**, poi **Merge pull request**.
 
@@ -73,10 +110,11 @@ with open(percorso) as file:          # apre il file e alla fine lo chiude da so
     righe = file.read().splitlines()  # una lista di righe, senza "a capo"
 
 righe[1:]                             # tutte tranne la prima (l'intestazione)
-"a,b,c".split(",")                    # ["a", "b", "c"]
-data, persona = ["2026-09-01", "Harry"]  # spacchettare una lista in variabili
+"1,Draco,Harry".split(",")            # ["1", "Draco", "Harry"]
+turno, mago = ["1", "Draco"]          # spacchettare una lista in variabili
+int("1")                              # 1: da testo a numero intero
 
-for categoria in sorted(totali):      # le chiavi in ordine alfabetico
+for mago in sorted(punti):            # le chiavi in ordine alfabetico
     ...
 "\n".join(["uno", "due"])             # "uno\ndue": unisce le righe con l'a capo
 ```

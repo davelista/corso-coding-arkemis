@@ -2,22 +2,22 @@
 
 Primo giorno di scuola. Piton dà i voti alle pozioni, il Nottetempo fa pagare in base all'età e le sciarpe della casata si ordinano via gufo.
 
-| Chi | Il tuo file | Nella storia |
-|---|---|---|
-| Numero 1 | `giudizio.py` | I voti di Piton |
-| Numero 2 | `prezzo_biglietto.py` | Il biglietto del Nottetempo |
-| Numero 3 | `spedizione.py` | Le sciarpe via gufo |
+| Chi | Il tuo file | Il tuo branch | Nella storia |
+|---|---|---|---|
+| Numero 1 | `giudizio.py` | `b-giudizio` | I voti di Piton |
+| Numero 2 | `prezzo_biglietto.py` | `b-prezzo-biglietto` | Il biglietto del Nottetempo |
+| Numero 3 | `spedizione.py` | `b-spedizione` | Le sciarpe via gufo |
 
 ## Come si fa
 
-Sempre gli stessi passi. L'esempio è quello di Anna, numero 1 della squadra B: al posto di `anna` e del file mettete il vostro nome e il vostro file.
+Sempre gli stessi passi. L'esempio è quello del numero 1 della squadra B: al posto del file e del branch mettete i vostri (sono nella tabella qui sopra).
 
-**1. Il branch nuovo**
+**1. Il branch nuovo, preso dal branch della squadra**
 
 ```bash
-git switch main
+git switch squadra-b-hogwarts
 git pull
-git switch -c b-anna-t2
+git switch -c b-giudizio
 cd ~/corso-coding-arkemis/giorno-03/squadra-b/tappa-2-condizioni
 ```
 
@@ -30,10 +30,16 @@ cd ~/corso-coding-arkemis/giorno-03/squadra-b/tappa-2-condizioni
 ```bash
 git add giudizio.py
 git commit -m "Tappa 2: giudizio"
-git push -u origin b-anna-t2
+git push -u origin b-giudizio
 ```
 
-**5. La pull request.** Su GitHub: **Compare & pull request**, poi **Create pull request**.
+**5. La pull request, verso il branch della squadra**
+
+```bash
+gh pr create --base squadra-b-hogwarts --fill
+```
+
+Oppure su GitHub: **Compare & pull request**, in alto cambia **base** da `main` a `squadra-b-hogwarts`, poi **Create pull request**.
 
 **6. La review.** Apri la PR del compagno che ti tocca: un commento, **Approve**, poi **Merge pull request**.
 

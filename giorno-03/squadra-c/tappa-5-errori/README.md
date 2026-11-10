@@ -2,22 +2,22 @@
 
 Non tutto va come previsto: pergamene con voti scritti a parole, un conto da dividere per zero maghi e una Penna Prendiappunti che inventa i numeri.
 
-| Chi | Il tuo file | Nella storia |
-|---|---|---|
-| Numero 1 | `leggi_voto.py` | La pergamena dei voti |
-| Numero 2 | `dividi_conto.py` | Il conto da Mielandia |
-| Numero 3 | `solo_numeri.py` | La Penna Prendiappunti |
+| Chi | Il tuo file | Il tuo branch | Nella storia |
+|---|---|---|---|
+| Numero 1 | `leggi_voto.py` | `c-leggi-voto` | La pergamena dei voti |
+| Numero 2 | `dividi_conto.py` | `c-dividi-conto` | Il conto da Mielandia |
+| Numero 3 | `solo_numeri.py` | `c-solo-numeri` | La Penna Prendiappunti |
 
 ## Come si fa
 
-Sempre gli stessi passi. L'esempio è quello di Anna, numero 1 della squadra C: al posto di `anna` e del file mettete il vostro nome e il vostro file.
+Sempre gli stessi passi. L'esempio è quello del numero 1 della squadra C: al posto del file e del branch mettete i vostri (sono nella tabella qui sopra).
 
-**1. Il branch nuovo**
+**1. Il branch nuovo, preso dal branch della squadra**
 
 ```bash
-git switch main
+git switch squadra-c-hogwarts
 git pull
-git switch -c c-anna-t5
+git switch -c c-leggi-voto
 cd ~/corso-coding-arkemis/giorno-03/squadra-c/tappa-5-errori
 ```
 
@@ -30,10 +30,16 @@ cd ~/corso-coding-arkemis/giorno-03/squadra-c/tappa-5-errori
 ```bash
 git add leggi_voto.py
 git commit -m "Tappa 5: leggi_voto"
-git push -u origin c-anna-t5
+git push -u origin c-leggi-voto
 ```
 
-**5. La pull request.** Su GitHub: **Compare & pull request**, poi **Create pull request**.
+**5. La pull request, verso il branch della squadra**
+
+```bash
+gh pr create --base squadra-c-hogwarts --fill
+```
+
+Oppure su GitHub: **Compare & pull request**, in alto cambia **base** da `main` a `squadra-c-hogwarts`, poi **Create pull request**.
 
 **6. La review.** Apri la PR del compagno che ti tocca: un commento, **Approve**, poi **Merge pull request**.
 
