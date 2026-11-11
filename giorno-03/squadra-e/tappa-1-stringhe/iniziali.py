@@ -14,8 +14,8 @@ def iniziali(nome: str, cognome: str) -> str:
     iniziali("anna", "verdi")     ->  "A.V."
     iniziali("  luca ", " neri")  ->  "L.N."   (gli spazi ai lati non contano)
     """
-    pass  # al posto di pass: il vostro codice, che finisce con un return
-
+    iniziali= nome.strip()[0].upper()+"."+cognome.strip()[0].upper()+"."
+    return iniziali
 
 # Questo blocco parte solo se lanciate il file: python iniziali.py
 if __name__ == "__main__":
