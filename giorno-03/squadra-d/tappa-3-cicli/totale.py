@@ -14,7 +14,14 @@ def totale(prezzi: list[float]) -> float:
     totale([10, -3, 2.5])    ->  12.5
     totale([])               ->  0
     """
-    pass  # al posto di pass: il vostro codice
+    totale = 0
+    for prezzo in prezzi:
+        if prezzo < 0:
+            prezzo = 0
+        totale = totale + prezzo
+    return totale
+
+    # pass  # al posto di pass: il vostro codice
 
 
 # Questo blocco parte solo se lanciate il file: python totale.py
