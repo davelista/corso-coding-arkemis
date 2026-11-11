@@ -8,13 +8,24 @@ Come provi: pytest test_solo_numeri.py -v     (tutto verde = finito)
 
 
 def solo_numeri(valori: list[str]) -> list[float]:
+    numeri = []
+    for valore in valori:
+        try: 
+            numero = float(valore)
+            numeri.append(numero) 
+        except ValueError:
+         pass 
+
+    return numeri
+
+
     """Trasforma i testi in numeri con float(), saltando quelli che non sono numeri.
 
     Usate try/except ValueError dentro il ciclo.
 
     solo_numeri(["3", "ciao", "2.5", "", " 4 "])  ->  [3.0, 2.5, 4.0]
     """
-    pass  # al posto di pass: il vostro codice
+    
 
 
 # Questo blocco parte solo se lanciate il file: python solo_numeri.py
