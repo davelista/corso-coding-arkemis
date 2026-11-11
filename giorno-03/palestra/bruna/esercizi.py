@@ -53,7 +53,10 @@ def conta_vocali(testo: str) -> int:
 
 def media(numeri: list[float]) -> float:
     """media([6, 7, 8]) -> 7.0     media([]) -> 0.0   (niente divisione per zero)"""
-    pass
+    if not numeri:
+        return 0.0
+    media = sum(numeri) / len(numeri)
+    return media
 
 
 def parola_piu_lunga(frase: str) -> str:
