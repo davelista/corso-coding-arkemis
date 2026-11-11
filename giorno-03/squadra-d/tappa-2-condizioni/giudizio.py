@@ -17,16 +17,16 @@ def giudizio(voto: int) -> str:
     altrimenti ->  "voto non valido"   (per esempio 0 oppure 11)
     """
     if 1 <= voto <= 5:
-        return "insufficiente"
+        giudizio = "insufficiente"
     elif voto == 6:
-        return "sufficiente"
-    elif voto in (7, 8):
-        return "buono"
-    elif voto in (9, 10):
-        return "ottimo"
+        giudizio = "sufficiente"
+    elif 7 <= voto <= 8:
+        giudizio = "buono"
+    elif 9 <= voto <= 10:
+        giudizio = "ottimo"
     else:
-        return "voto non valido"
-
+        giudizio = "voto non valido"
+    return giudizio
 
 
 # Questo blocco parte solo se lanciate il file: python giudizio.py
