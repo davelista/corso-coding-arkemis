@@ -1,0 +1,1 @@
+Ciao sono Ezio, uso Windows
