@@ -10,6 +10,28 @@ TITOLO = "CLUB DEI DUELLANTI"
 
 
 def annuncia(punti: dict[str, int]) -> str:
+    righe = TITOLO
+
+    for mago in sorted(punti):
+      righe = righe + "\n" + mago + ": " + str(punti[mago]) + " punti"
+
+    punti_massimi = max(punti.values())
+    vincitore = ""
+    pareggio = False
+    for mago in punti:
+        if punti[mago] == punti_massimi:
+            if vincitore == "":
+               vincitore = mago
+            else:
+                pareggio = True
+
+    if pareggio:
+        righe = righe + "\nPAREGGIO"
+    else:
+        righe = righe + "\nVINCE: " + vincitore
+
+    return righe
+    
     """Prepara l'annuncio: titolo, i punti di ogni mago in ordine alfabetico, chi vince.
 
     annuncia({"Harry": 20, "Draco": 0})  ->  il testo qui sotto, righe unite da "\n"
@@ -22,7 +44,7 @@ def annuncia(punti: dict[str, int]) -> str:
     Vince chi ha più punti. Se i primi hanno gli stessi punti, l'ultima riga è PAREGGIO.
     Restituisce il testo (return), non lo stampa: la print la fa duello.py.
     """
-    pass  # al posto di pass: il vostro codice
+    
 
 
 # Questo blocco parte solo se lanciate il file: python annuncio.py
