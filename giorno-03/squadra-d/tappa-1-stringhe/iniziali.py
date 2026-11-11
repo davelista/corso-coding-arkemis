@@ -17,7 +17,6 @@ def iniziali(nome: str, cognome: str) -> str:
    
     inizialeNome = nome.replace(" ", "")
     inizialeCognome = cognome.replace(" ", "")
-    pass  # al posto di pass: il vostro codice, che finisce con un return
     return f'{inizialeNome[0].upper()}.{inizialeCognome[0].upper()}.'
 # Questo blocco parte solo se lanciate il file: python iniziali.py
 if __name__ == "__main__":
