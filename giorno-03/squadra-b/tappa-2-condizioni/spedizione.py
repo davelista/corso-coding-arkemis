@@ -8,7 +8,15 @@ Come provi: pytest test_spedizione.py -v     (tutto verde = finito)
 
 
 def spedizione(totale: float, express: bool) -> float:
-    """Restituisce il costo della spedizione.
+ if totale < 50:
+    costo = 4.90
+ else:
+    costo = 0.0
+ if express:
+        costo = costo + 7.00
+ return costo
+   
+ """Restituisce il costo della spedizione.
 
     Spedizione normale: 4.90 se il totale è sotto 50, gratis (0.0) da 50 in su.
     Se express è True, si aggiungono sempre 7.00, anche quando la normale è gratis.
@@ -17,8 +25,9 @@ def spedizione(totale: float, express: bool) -> float:
     spedizione(80, False)  ->  0.0
     spedizione(20, True)   ->  11.9
     spedizione(80, True)   ->  7.0
-    """
-    pass  # al posto di pass: il vostro codice
+    """ 
+
+
 
 
 # Questo blocco parte solo se lanciate il file: python spedizione.py
