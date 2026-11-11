@@ -8,3 +8,4 @@ node_modules/
 # Segreti e sistema
 .env
 .DS_Store
+.devcontainer/
