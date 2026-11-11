@@ -87,7 +87,14 @@ def pizza_pasta(numero: int) -> str:
 
     pizza_pasta(9) -> "pizza"   pizza_pasta(10) -> "pasta"   pizza_pasta(15) -> "pizzapasta"   pizza_pasta(7) -> "7"
     """
-    pass
+    if numero % 3 == 0 and numero % 5 == 0:
+        return "pizzapasta"
+    elif numero % 3 == 0:
+        return "pizza"
+    elif numero % 5 == 0:
+        return "pasta"
+    else:
+        return str(numero)
 
 
 def dopo_le_vendite(magazzino: dict[str, int], vendite: list[str]) -> dict[str, int]:
