@@ -15,7 +15,13 @@ def leggi_voto(testo: str) -> int:
     leggi_voto("sette")  ->  ValueError   (non è un numero)
     leggi_voto("11")     ->  ValueError   (fuori scala: sollevatelo voi con raise)
     """
-    pass  # al posto di pass: il vostro codice
+
+    voto_intero = int(testo.strip())
+
+    if voto_intero > 10 or voto_intero <= 0:
+       raise ValueError("Fuori scala")     
+
+    return voto_intero
 
 
 # Questo blocco parte solo se lanciate il file: python leggi_voto.py
