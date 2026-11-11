@@ -16,7 +16,17 @@ def giudizio(voto: int) -> str:
     9 e 10     ->  "ottimo"
     altrimenti ->  "voto non valido"   (per esempio 0 oppure 11)
     """
-    pass  # al posto di pass: il vostro codice
+    if 1 <= voto <= 5:
+        return "insufficiente"
+    elif voto == 6:
+        return "sufficiente"
+    elif voto in (7, 8):
+        return "buono"
+    elif voto in (9, 10):
+        return "ottimo"
+    else:
+        return "voto non valido"
+
 
 
 # Questo blocco parte solo se lanciate il file: python giudizio.py
