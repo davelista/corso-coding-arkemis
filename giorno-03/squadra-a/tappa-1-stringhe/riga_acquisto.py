@@ -13,7 +13,9 @@ def riga_acquisto(prodotto: str, prezzo: float, quantita: int) -> str:
     riga_acquisto("piuma", 1.2, 3)       ->  "piuma x3: 3.60 galeoni"
     riga_acquisto("Pergamena", 2.5, 2)   ->  "pergamena x2: 5.00 galeoni"
     """
-    pass  # al posto di pass: il vostro codice, che finisce con un return
+    # pass  # al posto di pass: il vostro codice, che finisce con un return
+    costo_tot = prezzo * quantita
+    return f"{prodotto.lower()} x{quantita}: {costo_tot:.2f} galeoni"
 
 
 # Questo blocco parte solo se lanciate il file: python riga_acquisto.py
