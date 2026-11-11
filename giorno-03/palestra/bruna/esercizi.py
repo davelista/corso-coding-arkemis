@@ -61,7 +61,12 @@ def media(numeri: list[float]) -> float:
 
 def parola_piu_lunga(frase: str) -> str:
     """A parità vince la prima.   parola_piu_lunga("il gatto mangia") -> "mangia" """
-    pass
+    parole = frase.split()
+    parola_piu_lunga = ""
+    for parola in parole:
+        if len(parola) > len(parola_piu_lunga):
+            parola_piu_lunga = parola
+    return parola_piu_lunga
 
 
 def palindromo(frase: str) -> bool:
