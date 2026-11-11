@@ -41,7 +41,14 @@ def tabellina(numero: int) -> list[int]:
 
 def conta_vocali(testo: str) -> int:
     """Conta a, e, i, o, u, maiuscole comprese.   conta_vocali("Ciao Anna") -> 5"""
-    pass
+    testo_minuscolo = testo.lower()
+    vocali = ["a", "e", "i", "o", "u"]
+    counter = 0
+    for lettera in testo_minuscolo:
+        if lettera in vocali:
+            counter += 1
+    return counter
+
 
 
 def media(numeri: list[float]) -> float:
