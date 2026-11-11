@@ -13,9 +13,17 @@ def conta_parole(frase: str) -> dict[str, int]:
     conta_parole("Il gufo e il gatto")  ->  {"il": 2, "gufo": 1, "e": 1, "gatto": 1}
     conta_parole("")                    ->  {}
     """
-    pass  # al posto di pass: il vostro codice
-
-
+    conteggi={}
+    arrayFrase= frase.lower().split()
+    for parola in arrayFrase: 
+        print(parola)       
+           
+        if parola in conteggi:
+            conteggi[parola]+=1
+        else:
+            conteggi[parola]=1
+        
+    return conteggi
 # Questo blocco parte solo se lanciate il file: python conta_parole.py
 if __name__ == "__main__":
     print(conta_parole("Il gufo e il gatto"))
