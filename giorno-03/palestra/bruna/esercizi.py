@@ -18,7 +18,10 @@ def pari_o_dispari(numero: int) -> str:
 
 def inverti(parola: str) -> str:
     """inverti("ciao") -> "oaic" """
-    pass
+    reversed_word = ""
+    for i in range(len(parola) -1, -1, -1):
+        reversed_word += parola[i]
+    return reversed_word
 
 
 def conto_alla_rovescia(partenza: int) -> list[int]:
