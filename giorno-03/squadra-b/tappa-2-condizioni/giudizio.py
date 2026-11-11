@@ -16,8 +16,20 @@ def giudizio(voto: int) -> str:
     9 e 10     ->  "ottimo"
     altrimenti ->  "voto non valido"   (per esempio 0 oppure 11)
     """
-    pass  # al posto di pass: il vostro codice
+    
+    if 1 <= voto <= 5:
+        stampa_giudizio = "insufficiente"
+    elif voto == 6:
+        stampa_giudizio = "sufficiente"
+    elif 7 <= voto <= 8:
+        stampa_giudizio = "buono"
+    elif 9 <= voto <= 10:
+            stampa_giudizio = "ottimo"
+    else:
+         stampa_giudizio = "voto non valido"
+     
 
+    return stampa_giudizio
 
 # Questo blocco parte solo se lanciate il file: python giudizio.py
 if __name__ == "__main__":
