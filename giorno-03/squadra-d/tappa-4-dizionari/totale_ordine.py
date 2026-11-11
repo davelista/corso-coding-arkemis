@@ -17,22 +17,6 @@ def totale_ordine(menu: dict[str, float], ordine: dict[str, int]) -> float:
     totale_ordine(menu, {"whisky incendiario": 3, "succo di zucca": 1}) ->  1.5
     """
 
-
-    
-    """ piattiMenu = []
-    prezzoPiattiMenu = []
-    piattiOrdinati = []
-    quantitàPiattiOrdinati = []
-
-    for piatto, prezzo in menu.items():
-        piattiMenu.append(piatto)
-        prezzoPiattiMenu.append(prezzo)
-        
-    else:
-        pass
-
-    for ordine, quantità in ordine.items():
-        if ordine in piattiMenu: """
     totale = 0
     for piattoOrdinato, quantità in ordine.items():
         if piattoOrdinato in menu:
