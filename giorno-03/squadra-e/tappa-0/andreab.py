@@ -8,7 +8,7 @@
 nome = "AndreaB"
 citta = "Rovigo"
 anni_di_python = 0
-linguaggi = ["italiano", "inglese", "francese"]  # tutti quelli che parli, anche quelli umani
+linguaggi = ["italiano", "inglese"]  # tutti quelli che parli, anche quelli umani
 
 print(f"Ciao, sono {nome}, vengo da {citta} e salgo sull'Hogwarts Express.")
 
