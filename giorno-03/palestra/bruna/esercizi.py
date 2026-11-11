@@ -26,7 +26,11 @@ def inverti(parola: str) -> str:
 
 def conto_alla_rovescia(partenza: int) -> list[int]:
     """Con un ciclo while.   conto_alla_rovescia(3) -> [3, 2, 1]     conto_alla_rovescia(0) -> []"""
-    pass
+    alla_rovescia = []
+    while partenza > 0:
+        alla_rovescia.append(partenza)
+        partenza -= 1
+    return alla_rovescia
 
 
 def tabellina(numero: int) -> list[int]:
