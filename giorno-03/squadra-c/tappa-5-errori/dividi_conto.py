@@ -5,7 +5,7 @@ La storia:  Il conto dei dolci si divide in parti uguali. Ma se qualcuno scrive 
 Cosa fai:   al posto di pass scrivi il codice della funzione qui sotto.
 Come provi: pytest test_dividi_conto.py -v     (tutto verde = finito)
 """
-
+conto = 0
 
 def dividi_conto(totale: float, persone: int) -> float:
     """Divide il conto tra le persone, arrotondando a 2 decimali con round().
@@ -14,8 +14,13 @@ def dividi_conto(totale: float, persone: int) -> float:
     dividi_conto(100, 3)  ->  33.33
     dividi_conto(50, 0)   ->  ValueError   (sollevatelo voi, prima di dividere)
     """
-    pass  # al posto di pass: il vostro codice
+    
+    if persone <= 0:
+     raise ValueError("Serve almeno una persona")
+    
+    conto = totale / persone
 
+    return round(conto, 2)
 
 # Questo blocco parte solo se lanciate il file: python dividi_conto.py
 if __name__ == "__main__":
