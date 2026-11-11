@@ -47,6 +47,17 @@ def petrificus_totalus(punti: int) -> int:
         punti = 0
     return punti
 
+def rictusempra(punti: int) -> int:
+    """Fa il solletico al bersaglio: gli toglie 5 punti. Mai sotto zero.
+
+    rictusempra(50)  ->  45
+    rictusempra(20)  ->  15
+    """
+    punti = punti - 5
+    if punti < 0:
+        punti = 0
+    return punti
+
 
 def lancia(incantesimo: str, punti: int) -> int:
     """Lancia l'incantesimo con questo nome e restituisce i punti che restano al bersaglio.
@@ -62,6 +73,8 @@ def lancia(incantesimo: str, punti: int) -> int:
         punti_restanti = stupeficium(punti)
     elif incantesimo == "petrificus totalus":
         punti_restanti = petrificus_totalus(punti)
+    elif incantesimo == "rictusempra":
+            punti_restanti = rictusempra(punti)
     else :
         punti_restanti = punti
     return punti_restanti
