@@ -17,16 +17,18 @@ def pari_o_dispari(numero: int) -> str:
 
 def inverti(parola: str) -> str:
     """inverti("ciao") -> "oaic" """
-    caratteri = []
-    parola_invertita = ""
-    for c in parola:
-        caratteri.append(c)
-    caratteri.reverse()
+    #caratteri = []
+    #parola_invertita = ""
+    #for c in parola:
+    #    caratteri.append(c)
+    #caratteri.reverse()
+#
+    #for c in caratteri:
+    #    parola_invertita += c
+#
+    #return parola_invertita
 
-    for c in caratteri:
-        parola_invertita += c
-
-    return parola_invertita
+    return parola[::-1]
 
 
 def conto_alla_rovescia(partenza: int) -> list[int]:
@@ -40,10 +42,13 @@ def conto_alla_rovescia(partenza: int) -> list[int]:
 
 def tabellina(numero: int) -> list[int]:
     """I primi 10 multipli, con range().   tabellina(3) -> [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]"""
-    risultato = []
-    for i in range(1,11):
-        risultato.append(numero*i)
-    return risultato
+    #risultato = []
+    #for i in range(1,11):
+    #    risultato.append(numero*i)
+    #return risultato
+
+    #utilizzare List comprehnsion per semplificare
+    return [numero * i for i in range(1,11)]
 
 
 
@@ -52,31 +57,39 @@ def conta_vocali(testo: str) -> int:
     testo_pulito = testo.lower()
     count = 0
     for c in testo_pulito:
-        if c == 'a' or c == 'e' or c == 'i' or c == 'o' or c == 'u':
+        #if c == 'a' or c == 'e' or c == 'i' or c == 'o' or c == 'u':
+        if c in "aeiou":
             count += 1
     return count
 
 
 def media(numeri: list[float]) -> float:
     """media([6, 7, 8]) -> 7.0     media([]) -> 0.0   (niente divisione per zero)"""
-    sum = 0
-    for n in numeri:
-        if n == 0:
-            continue
-        sum += n
-    if len(numeri) > 0:
-        return sum/len(numeri) 
-    return 0.0
+    #sum = 0
+    #for n in numeri:
+        #if n == 0:
+        #    continue #BUG PERCHE SE C'è UNA LISTA DEL TIPO [0, 10] LA MEDIA DEV'ESSERE 5.0 NON 10.0
+        #sum += n
+    #if len(numeri) > 0:
+    #    return sum/len(numeri) 
+    #return 0.0
+    
+    if not numeri:
+        return 0.0
+    return sum(numeri) / len(numeri)
 
 def parola_piu_lunga(frase: str) -> str:
     """A parità vince la prima.   parola_piu_lunga("il gatto mangia") -> "mangia" """
-    parole = frase.split(" ")
-    massimo = 0
-    for parola in parole:
-        if len(parola) > massimo:
-            massimo = len(parola)
-            p = parola
-    return p
+    #parole = frase.split(" ")
+    #massimo = 0
+    #for parola in parole:
+    #    if len(parola) > massimo:
+    #        massimo = len(parola)
+    #        p = parola
+    #return p
+    # split() senza argomenti gestisce automaticamente spazi multipli
+    # max() con key=len trova l'elemento con la lunghezza maggiore
+    return max(frase.split(), key=len)
 
 def palindromo(frase: str) -> bool:
     """Si legge uguale nei due sensi, senza contare spazi e maiuscole.
@@ -85,9 +98,11 @@ def palindromo(frase: str) -> bool:
     palindromo("I topi non avevano nipoti") -> True
     palindromo("Python") -> False
     """
-    if inverti(frase).lower().replace(" ", "") == frase.lower().replace(" ", ""):
-        return True
-    return False
+    #if inverti(frase).lower().replace(" ", "") == frase.lower().replace(" ", ""):
+    #    return True
+    #return False
+    pulita = frase.lower().replace(" ", "")
+    return pulita == pulita[::-1]
 
 
 def pizza_pasta(numero: int) -> str:
@@ -112,14 +127,23 @@ def dopo_le_vendite(magazzino: dict[str, int], vendite: list[str]) -> dict[str, 
 
     dopo_le_vendite({"penna": 5, "zaino": 2}, ["penna", "penna", "zaino"]) -> {"penna": 3, "zaino": 1}
     """
-    new_magazzino = dict(magazzino)
-    for m in new_magazzino:
-        for v in vendite:
-            if m == v:
-                if new_magazzino[m] == 0:
-                    continue
-                new_magazzino[m] -= 1
-    
+    #new_magazzino = dict(magazzino)
+    #for m in new_magazzino:
+    #    for v in vendite:
+    #        if m == v:
+    #            if new_magazzino[m] == 0:
+    #                continue
+    #            new_magazzino[m] -= 1
+    #
+    #return new_magazzino
+
+    #più veloce
+    new_magazzino = magazzino.copy()
+
+    for articolo in vendite:
+        if articolo in new_magazzino and new_magazzino[articolo] > 0:
+            new_magazzino[articolo] -= 1
     return new_magazzino
+
 if __name__ == "__main__":
     print(dopo_le_vendite({"penna": 5, "zaino": 2}, ["penna", "penna", "zaino"]))
