@@ -13,8 +13,18 @@ def insufficienti(voti: list[int]) -> list[int]:
     insufficienti([7, 4, 6, 5, 9])  ->  [4, 5]
     insufficienti([6, 7])           ->  []
     """
-    pass  # al posto di pass: il vostro codice
+   
+def insufficienti(voti: list[int]) -> list[int]:
+    """Restituisce una lista nuova con i soli voti sotto il 6, nello stesso ordine.
 
+    insufficienti([7, 4, 6, 5, 9])  ->  [4, 5]
+    insufficienti([6, 7])           ->  []
+    """
+    risultato = []
+    for voto in voti:
+        if voto < 6:
+            risultato.append(voto)
+    return risultato
 
 # Questo blocco parte solo se lanciate il file: python insufficienti.py
 if __name__ == "__main__":
