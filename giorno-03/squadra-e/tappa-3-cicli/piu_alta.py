@@ -13,7 +13,14 @@ def piu_alta(temperature: list[float]) -> float:
     piu_alta([18.5, 22.0, 19.5])   ->  22.0
     piu_alta([-3.0, -1.5, -7.0])   ->  -1.5     (attenzione: d'inverno sono tutte sotto zero)
     """
-    pass  # al posto di pass: il vostro codice
+
+    temperatura_max = temperature[0]
+    
+    for temperatura in temperature:
+        if temperatura > temperatura_max:
+            temperatura_max = temperatura
+
+    return temperatura_max
 
 
 # Questo blocco parte solo se lanciate il file: python piu_alta.py
