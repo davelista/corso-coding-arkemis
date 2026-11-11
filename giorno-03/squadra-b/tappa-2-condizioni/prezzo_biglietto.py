@@ -15,7 +15,20 @@ def prezzo_biglietto(eta: int) -> float:
     da 18 a 64 anni   ->  10.0   (intero)
     da 65 anni in su  ->  6.0    (over 65)
     """
-    pass  # al posto di pass: il vostro codice
+    if eta < 0:
+        return None
+    
+    prezzo_biglietto= 0.0
+    if 0<= eta < 6:
+        prezzo_biglietto += 0.0
+    elif 6<= eta < 18:
+        prezzo_biglietto += 5.0
+    elif 18<= eta < 65:
+        prezzo_biglietto += 10.0
+    else:
+        prezzo_biglietto += 6.0
+    return prezzo_biglietto
+        
 
 
 # Questo blocco parte solo se lanciate il file: python prezzo_biglietto.py
