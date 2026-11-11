@@ -5,8 +5,8 @@
 # 3. Lancialo:                                             python anna.py
 # 4. Poi il giro di Git: branch, commit, push, pull request
 
-nome = "Nome"
-citta = "Città"
+nome = "Simone"
+citta = "Pandino"
 anni_di_python = 0
 linguaggi = ["italiano", "inglese"]  # tutti quelli che parli, anche quelli umani
 
