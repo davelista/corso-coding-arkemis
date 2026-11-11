@@ -30,7 +30,10 @@ def stupeficium(punti: int) -> int:
     stupeficium(50)  ->  30
     stupeficium(15)  ->  0
     """
-    pass  # al posto di pass: il vostro codice
+    punti = punti - 20
+    if punti < 0:
+        punti = 0
+    return punti
 
 
 def petrificus_totalus(punti: int) -> int:
@@ -39,7 +42,10 @@ def petrificus_totalus(punti: int) -> int:
     petrificus_totalus(50)  ->  20
     petrificus_totalus(20)  ->  0
     """
-    pass  # al posto di pass: il vostro codice
+    punti = punti - 30
+    if punti < 0:
+        punti = 0
+    return punti
 
 
 def lancia(incantesimo: str, punti: int) -> int:
@@ -49,7 +55,16 @@ def lancia(incantesimo: str, punti: int) -> int:
     lancia("petrificus totalus", 50)  ->  20    nel CSV c'è lo spazio, nel nome della funzione il _
     lancia("serpensortia", 50)        ->  50    incantesimo che il libro non conosce: fa cilecca
     """
-    pass  # al posto di pass: il vostro codice
+    punti_restanti = 0
+    if incantesimo == "expelliarmus":
+        punti_restanti = expelliarmus(punti)
+    elif incantesimo == "stupeficium":
+        punti_restanti = stupeficium(punti)
+    elif incantesimo == "petrificus totalus":
+        punti_restanti = petrificus_totalus(punti)
+    else :
+        punti_restanti = punti
+    return punti_restanti
 
 
 # Questo blocco parte solo se lanciate il file: python incantesimi.py
