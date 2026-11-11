@@ -13,9 +13,13 @@ def riga_acquisto(prodotto: str, prezzo: float, quantita: int) -> str:
     riga_acquisto("piuma", 1.2, 3)       ->  "piuma x3: 3.60 galeoni"
     riga_acquisto("Pergamena", 2.5, 2)   ->  "pergamena x2: 5.00 galeoni"
     """
-    pass  # al posto di pass: il vostro codice, che finisce con un return
+    money = "galeoni"
+    product = prodotto.strip().lower().replace(" ", "")
+    price = prezzo * quantita
+
+    return f"{product} x{quantita}: {price:.2f} {money}"  # al posto di pass: il vostro codice, che finisce con un return
 
 
 # Questo blocco parte solo se lanciate il file: python riga_acquisto.py
 if __name__ == "__main__":
-    print(riga_acquisto("piuma", 1.2, 3))
+    print(riga_acquisto("Piuma", 1.2, 3))
