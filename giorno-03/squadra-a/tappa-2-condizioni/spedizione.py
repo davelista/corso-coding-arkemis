@@ -18,7 +18,12 @@ def spedizione(totale: float, express: bool) -> float:
     spedizione(20, True)   ->  11.9
     spedizione(80, True)   ->  7.0
     """
-    pass  # al posto di pass: il vostro codice
+    costo_spedizione = 0
+    if totale < 50:
+        costo_spedizione += 4.90
+    if express:
+        costo_spedizione += 7
+    return costo_spedizione
 
 
 # Questo blocco parte solo se lanciate il file: python spedizione.py
