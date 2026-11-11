@@ -7,11 +7,6 @@ Come provi: pytest test_incantesimi.py -v     (tutto verde = finito)
 """
 
 
-# Un incantesimo è una funzione: riceve i punti del bersaglio
-# e restituisce (return) i punti che gli restano. Mai sotto zero.
-# Il primo è già scritto: guardalo, poi scrivi gli altri tre.
-
-
 def expelliarmus(punti: int) -> int:
     """Disarma il bersaglio: gli toglie 10 punti.
 
@@ -30,7 +25,10 @@ def stupeficium(punti: int) -> int:
     stupeficium(50)  ->  30
     stupeficium(15)  ->  0
     """
-    pass  # al posto di pass: il vostro codice
+    punti = punti - 20
+    if punti < 0:
+        punti = 0
+    return punti
 
 
 def petrificus_totalus(punti: int) -> int:
@@ -39,7 +37,10 @@ def petrificus_totalus(punti: int) -> int:
     petrificus_totalus(50)  ->  20
     petrificus_totalus(20)  ->  0
     """
-    pass  # al posto di pass: il vostro codice
+    punti = punti - 30
+    if punti < 0:
+        punti = 0
+    return punti
 
 
 def lancia(incantesimo: str, punti: int) -> int:
@@ -49,9 +50,15 @@ def lancia(incantesimo: str, punti: int) -> int:
     lancia("petrificus totalus", 50)  ->  20    nel CSV c'è lo spazio, nel nome della funzione il _
     lancia("serpensortia", 50)        ->  50    incantesimo che il libro non conosce: fa cilecca
     """
-    pass  # al posto di pass: il vostro codice
+    if incantesimo == "expelliarmus":
+        return expelliarmus(punti)
+    elif incantesimo == "stupeficium":
+        return stupeficium(punti)
+    elif incantesimo == "petrificus totalus":
+        return petrificus_totalus(punti)
+    else:
+        return punti
 
 
-# Questo blocco parte solo se lanciate il file: python incantesimi.py
 if __name__ == "__main__":
     print(lancia("stupeficium", 50))
