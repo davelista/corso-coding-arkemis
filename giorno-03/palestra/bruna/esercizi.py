@@ -76,7 +76,10 @@ def palindromo(frase: str) -> bool:
     palindromo("I topi non avevano nipoti") -> True
     palindromo("Python") -> False
     """
-    pass
+    check_frase = frase.strip().replace(" ", "").lower()
+    reversed_frase = check_frase[::-1]
+    return check_frase == reversed_frase
+    
 
 
 def pizza_pasta(numero: int) -> str:
