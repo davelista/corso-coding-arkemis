@@ -103,4 +103,7 @@ def dopo_le_vendite(magazzino: dict[str, int], vendite: list[str]) -> dict[str, 
 
     dopo_le_vendite({"penna": 5, "zaino": 2}, ["penna", "penna", "zaino"]) -> {"penna": 3, "zaino": 1}
     """
-    pass
+    magazzino_aggiornato = magazzino.copy()
+    for pezzo in vendite:
+            magazzino_aggiornato[pezzo] -= 1
+    return magazzino_aggiornato
