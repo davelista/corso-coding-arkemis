@@ -16,7 +16,11 @@ def totale_ordine(menu: dict[str, float], ordine: dict[str, int]) -> float:
     totale_ordine(menu, {"burrobirra": 2, "torta di melassa": 1})       ->  18.0
     totale_ordine(menu, {"whisky incendiario": 3, "succo di zucca": 1}) ->  1.5
     """
-    pass  # al posto di pass: il vostro codice
+    totale = 0.0
+    for piatto, quantita in ordine.items():
+        if piatto in menu:
+            totale += menu[piatto] * quantita
+    return totale
 
 
 # Questo blocco parte solo se lanciate il file: python totale_ordine.py
