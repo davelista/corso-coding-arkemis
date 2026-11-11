@@ -22,7 +22,36 @@ def annuncia(punti: dict[str, int]) -> str:
     Vince chi ha più punti. Se i primi hanno gli stessi punti, l'ultima riga è PAREGGIO.
     Restituisce il testo (return), non lo stampa: la print la fa duello.py.
     """
-    pass  # al posto di pass: il vostro codice
+    # creo la lista che conterrà gli elementi dell'annuncio
+    annuncio = []
+    
+    # aggiungo il titolo
+    annuncio.append(TITOLO)
+
+    # aggiungo i punteggi di ogni mago in ordine alfabetico
+    for mago in sorted(punti):
+        annuncio.append(f"{mago}: {punti[mago]} punti")
+    
+    # verifico qual è il punteggio più alto o se c'è pareggio
+    punteggio_max = 0
+    vincitore = ""
+    pareggio = False
+
+    for mago, punteggio in punti.items():
+        if punteggio > punteggio_max:
+            punteggio_max = punteggio
+            vincitore = mago
+            pareggio = False
+        elif punteggio == punteggio_max:
+            pareggio = True
+
+    if pareggio:
+        annuncio.append("PAREGGIO")
+    else:
+        annuncio.append(f"VINCE: {vincitore}")
+
+    # formatto il contenuto dell'annuncio suddiviso per righe
+    return "\n".join(annuncio)
 
 
 # Questo blocco parte solo se lanciate il file: python annuncio.py
