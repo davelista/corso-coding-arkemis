@@ -2,10 +2,10 @@
 
 | Numero | Nome | Legge e approva la PR di |
 |---|---|---|
-| 1 | | numero 2 |
-| 2 | | numero 3 |
-| 3 | | numero 1 |
+| 1 |Francesco | Bruna |
+| 2 |Bruna | Federico |
+| 3 |Federico | Francesco |
 
 Il motto va ricamato sulle sciarpe della squadra: lo scegliete nell'ultima tappa.
 
-Motto: ancora da scegliere
+Motto: da definire
