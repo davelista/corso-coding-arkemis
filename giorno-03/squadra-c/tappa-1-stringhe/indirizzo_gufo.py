@@ -14,7 +14,10 @@ def indirizzo_gufo(nome: str, cognome: str) -> str:
     indirizzo_gufo("ANNA", "Bianchi")         ->  "anna.bianchi@hogwarts.it"
     indirizzo_gufo("Anna Maria", "De Luca")   ->  "annamaria.deluca@hogwarts.it"
     """
-    pass  # al posto di pass: il vostro codice, che finisce con un return
+    #pass  # al posto di pass: il vostro codice, che finisce con un return
+    print(f"{nome.strip().lower().replace(' ', '')}.{cognome.strip().lower().replace(' ', '')}@hogwarts.it")
+    
+    return f"{nome.strip().lower().replace(' ', '')}.{cognome.strip().lower().replace(' ', '')}@hogwarts.it"
 
 
 # Questo blocco parte solo se lanciate il file: python indirizzo_gufo.py
