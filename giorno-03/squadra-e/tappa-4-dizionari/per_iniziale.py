@@ -14,8 +14,15 @@ def per_iniziale(nomi: list[str]) -> dict[str, list[str]]:
     per_iniziale(["Harry", "Ron", "hermione"])  ->  {"H": ["Harry", "hermione"], "R": ["Ron"]}
     per_iniziale([])                           ->  {}
     """
-    pass  # al posto di pass: il vostro codice
+    dizionario = {}
 
+    for nome in nomi:
+        if nome[0].upper() in dizionario:
+            dizionario[nome[0].upper()].append(nome)
+        else:
+            dizionario[nome[0].upper()] = [nome]
+
+    return dizionario
 
 # Questo blocco parte solo se lanciate il file: python per_iniziale.py
 if __name__ == "__main__":
