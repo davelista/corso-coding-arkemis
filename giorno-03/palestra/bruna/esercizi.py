@@ -35,7 +35,8 @@ def conto_alla_rovescia(partenza: int) -> list[int]:
 
 def tabellina(numero: int) -> list[int]:
     """I primi 10 multipli, con range().   tabellina(3) -> [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]"""
-    pass
+    tabellina = list(range(numero, (numero * 10) + 1, numero))
+    return tabellina
 
 
 def conta_vocali(testo: str) -> int:
