@@ -14,7 +14,18 @@ def per_iniziale(nomi: list[str]) -> dict[str, list[str]]:
     per_iniziale(["Harry", "Ron", "hermione"])  ->  {"H": ["Harry", "hermione"], "R": ["Ron"]}
     per_iniziale([])                           ->  {}
     """
-    pass  # al posto di pass: il vostro codice
+
+    gruppi = {}
+
+    for nome in nomi:
+        iniziale = nome[0].upper()
+
+        if iniziale not in gruppi:
+            gruppi[iniziale] = [nome]
+        else:
+            gruppi[iniziale].append(nome)
+
+    return gruppi            
 
 
 # Questo blocco parte solo se lanciate il file: python per_iniziale.py
