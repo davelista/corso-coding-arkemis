@@ -17,7 +17,27 @@ def leggi_mosse(percorso: str) -> list[dict]:
     Ogni mossa è un dizionario fatto così:
     {"turno": 1, "mago": "Draco", "bersaglio": "Harry", "incantesimo": "stupeficium"}
     """
-    pass  # al posto di pass: il vostro codice
+    with open(percorso) as file:
+        righe = file.read().splitlines()
+
+    mosse_list = []
+    chiavi = righe[0].split(",")
+    for riga in righe[1:]:
+        mossa = {}
+        if not riga.strip():
+            continue
+        riga_mossa = riga.split(",")        
+        riga_mossa[0] = int(riga_mossa[0])
+        # print(f"colonne: {enumerate(riga_mossa)}")
+        # print(f"chiavi {chiavi}")
+        for i,valore in enumerate(riga_mossa):
+            # print(chiavi[i], valore)
+            mossa[chiavi[i]] = valore    
+        mosse_list.append(mossa)
+        # print(mosse_list)
+
+    return mosse_list
+        
 
 
 # Questo blocco parte solo se lanciate il file: python leggi.py
