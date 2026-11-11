@@ -14,7 +14,17 @@ def solo_numeri(valori: list[str]) -> list[float]:
 
     solo_numeri(["3", "ciao", "2.5", "", " 4 "])  ->  [3.0, 2.5, 4.0]
     """
-    pass  # al posto di pass: il vostro codice
+    numeri = []
+    
+    for elemento in valori:
+        try:
+            numero = float(elemento)
+            numeri.append(numero)
+           
+        except ValueError:
+            print("Non è un numero!")
+
+    return numeri
 
 
 # Questo blocco parte solo se lanciate il file: python solo_numeri.py
