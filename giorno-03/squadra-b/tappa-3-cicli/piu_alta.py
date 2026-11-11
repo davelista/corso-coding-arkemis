@@ -8,12 +8,18 @@ Come provi: pytest test_piu_alta.py -v     (tutto verde = finito)
 
 
 def piu_alta(temperature: list[float]) -> float:
+    piu_alta_trovata = temperature [0]
+    for tempo in temperature:
+     if tempo > piu_alta_trovata:
+            piu_alta_trovata = tempo
+    return piu_alta_trovata
+
     """Restituisce la temperatura più alta della lista (che non è mai vuota). Senza usare max().
 
     piu_alta([18.5, 22.0, 19.5])   ->  22.0
     piu_alta([-3.0, -1.5, -7.0])   ->  -1.5     (attenzione: d'inverno sono tutte sotto zero)
     """
-    pass  # al posto di pass: il vostro codice
+    
 
 
 # Questo blocco parte solo se lanciate il file: python piu_alta.py
