@@ -13,8 +13,11 @@ def insufficienti(voti: list[int]) -> list[int]:
     insufficienti([7, 4, 6, 5, 9])  ->  [4, 5]
     insufficienti([6, 7])           ->  []
     """
-    pass  # al posto di pass: il vostro codice
-
+    insufficienti= []
+    for voto in voti:
+        if voto < 6:
+            insufficienti.append(voto)
+    return insufficienti
 
 # Questo blocco parte solo se lanciate il file: python insufficienti.py
 if __name__ == "__main__":
