@@ -51,6 +51,7 @@ def fumatori():
     fumatori()  ->  ["Merry", "Pipino", "Bilbo", ...]
     """
     nomi = []
+    # ValueError: errore di accesso dell' item nel ciclo
     for nome, info in PERSONE.items():
         if info["fuma"]:
             nomi.append(nome)
