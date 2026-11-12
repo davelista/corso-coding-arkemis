@@ -26,7 +26,7 @@ def presenti():
 
     presenti()  ->  ["Aragorn", "Bilbo", "Boromir", ...]
     """
-    return sorted(persone)
+    return sorted(PERSONE)
 
 
 # ---------------------------------------------------------------- TAPPA 2
