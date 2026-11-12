@@ -89,8 +89,8 @@ def entrati(luogo, dalle, alle):
 
     entrati("Cucine", "01:00", "02:00")  ->  ["Sam", "Pipino"]
     """
+    chi = []
     for nome in SPOSTAMENTI:
-        chi = []
         for passaggio in SPOSTAMENTI[nome]:
             if passaggio["luogo"] == luogo and dalle <= passaggio["ora"] < alle:
                 chi.append(nome)
@@ -114,7 +114,11 @@ def minuti(ora):
     Se uno non va: raise ValueError(f"Ora non valida: {ora}")
     Nel messaggio mettete anche l'ora sbagliata: serve a chi legge l'avviso.
     """
+    if ":" not in ora:
+        raise ValueError(f"Ora non valida: {ora}")
     ore, mm = ora.split(":")
+    if not 0<=int(ore)<=24 or not 0<=int(mm)<=59:
+        raise ValueError(f"Ora non valida: {ora}")
     return int(ore) * 60 + int(mm)
 
 
@@ -135,8 +139,12 @@ def soste(nome):
     risultato = {}
     for i in range(len(passaggi) - 1):
         luogo = passaggi[i]["luogo"]
-        inizio = minuti(passaggi[i]["ora"])
-        fine = minuti(passaggi[i + 1]["ora"])
+        try:
+            inizio = minuti(passaggi[i]["ora"])
+            fine = minuti(passaggi[i + 1]["ora"])
+        except ValueError as errore:
+            print("Attenzione:", errore, file=sys.stderr)
+            
         risultato[luogo] = fine - inizio
     return risultato
 
