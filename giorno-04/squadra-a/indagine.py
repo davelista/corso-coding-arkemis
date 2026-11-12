@@ -76,7 +76,7 @@ def percorso(nome):
     """
     luoghi = []
     for passaggio in SPOSTAMENTI[nome]:
-        luoghi.add(passaggio["luogo"])
+        luoghi.append(passaggio["luogo"])
     return luoghi
 
 
