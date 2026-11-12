@@ -49,7 +49,9 @@ def fumatori():
     fumatori()  ->  ["Merry", "Pipino", "Bilbo", ...]
     """
     nomi = []
-    for nome, info in PERSONE:
+    for nome in PERSONE:
+
+        info = PERSONE[nome]
         if info["fuma"]:
             nomi.append(nome)
     return nomi
