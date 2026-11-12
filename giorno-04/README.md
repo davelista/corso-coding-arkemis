@@ -6,6 +6,7 @@
 | Mattina | [`ERRORI.md`](ERRORI.md) | Leggere un traceback, gli errori più comuni, `try/except` |
 | Mattina | `squadra-a` … `squadra-e` | **Dove è stato nascosto l'Anello?** Un'indagine a Gran Burrone, a squadre |
 | Pomeriggio | `negozio/`, `giallo/` | SQL: il database degli esempi e il giallo del vagone fantasma |
+| Pomeriggio | [`BIGINO-SQL.md`](BIGINO-SQL.md) | Tutto SQL in una pagina: SELECT, WHERE, JOIN (con i disegni), GROUP BY, gli errori |
 | Più avanti | `progetto/` | Lo schema del vostro progetto |
 
 ## Una volta sola: il venv della squadra
@@ -44,6 +45,19 @@ Nella cartella della squadra ci sono quattro file:
 | `test_indagine.py` | I test: verde = l'indizio di quella tappa è affidabile | No |
 | `verifica.py` | Per dare la risposta: `python verifica.py "il luogo"` | No |
 
+### Le regole
+
+1. **Si tocca solo `indagine.py`.** `dati.py`, `test_indagine.py` e `verifica.py` no. Se li modificate per sbaglio: `git restore nome-del-file`.
+2. **Una tastiera sola, a turno.** Chi è alla tastiera condivide lo schermo e scrive; si cambia a ogni tappa, l'ordine è in `squadra.md`. Parte chi si sente meno sicuro: chi è più forte detta, non scrive.
+3. **Prima si legge, poi si tocca.** Sopra la riga sbagliata, un commento: che errore è, su che riga, cosa pensate che non vada.
+4. **Una tappa alla volta, in ordine.** Si corregge il minimo, di solito una riga sola.
+5. **Tappa verde, poi commit e push.** `pytest -v -k tappa_N`. Nel messaggio: il tipo di errore e la causa.
+6. **A inizio tappa, tutti e tre: `git pull`.** Push diretto sul branch della squadra, niente pull request.
+7. **Bloccati da 15 minuti sulla stessa tappa?** Scrivete nel canale delle domande: la tappa, l'ultima riga del traceback, cosa avete provato.
+8. **Quando `verifica.py` dice ESATTO:** il luogo in `squadra.md`, commit «Caso chiuso» e push. Alle altre squadre si danno solo aiuti a voce: **il luogo non si dice**.
+
+Orari: 11:20 – 13:00, pausa 12:10 – 12:20. Qui sotto, ogni regola spiegata per bene.
+
 ### Come si gioca
 
 1. Lanciate `python indagine.py` (oppure **F5** in VS Code). Stampa gli indizi delle tappe che funzionano e si ferma alla prima con un errore.
@@ -62,7 +76,7 @@ Uno condivide lo schermo e scrive, gli altri due leggono il traceback ad alta vo
 ### Il giro di Git, a ogni tappa (lo fa chi è alla tastiera)
 
 ```bash
-git pull                     # prima di tutto: il lavoro di chi ha guidato prima
+git pull                     # prima di tutto: il lavoro di chi c'era prima
 # correggete, poi:
 pytest -v -k tappa_2
 git add indagine.py
@@ -72,7 +86,7 @@ git push
 
 Nel messaggio del commit scrivete **il tipo di errore e la causa**: alla fine la storia dei commit è il riassunto di tutti gli errori di oggi.
 Oggi si fa push direttamente sul branch della squadra, niente pull request. Se il push viene rifiutato, avete dimenticato `git pull`: fatelo e riprovate.
-Chi non guida, a inizio tappa fa solo `git pull`, così ha il codice aggiornato anche sul suo computer.
+Chi non è alla tastiera, a inizio tappa fa solo `git pull`, così ha il codice aggiornato anche sul suo computer.
 
 ### Se finite prima
 
