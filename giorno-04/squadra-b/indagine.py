@@ -91,8 +91,8 @@ def entrati(luogo, dalle, alle):
 
     entrati("Cucine", "01:00", "02:00")  ->  ["Sam", "Pipino"]
     """
-    for nome in SPOSTAMENTI:
-        chi = []
+    chi = []
+    for nome in SPOSTAMENTI: 
         for passaggio in SPOSTAMENTI[nome]:
             if passaggio["luogo"] == luogo and dalle <= passaggio["ora"] < alle:
                 chi.append(nome)
