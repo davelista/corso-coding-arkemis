@@ -115,8 +115,15 @@ def minuti(ora):
     Se uno non va: raise ValueError(f"Ora non valida: {ora}")
     Nel messaggio mettete anche l'ora sbagliata: serve a chi legge l'avviso.
     """
+    if ":" not in ora:
+            raise ValueError(f"Ora non valida: {ora}")
+        #("Ora non valida")
     ore, mm = ora.split(":")
-    return int(ore) * 60 + int(mm)
+    if 0 <= int(ore) <= 23 and 0 <= int(mm) <= 59:
+        return int(ore) * 60 + int(mm)
+    else:
+        raise ValueError(f"Ora non valida: {ora}")
+        
 
 
 def soste(nome):
@@ -129,15 +136,19 @@ def soste(nome):
 
     Da scrivere voi: il try/except intorno alle chiamate di minuti(...).
     Nell'except:
-        print("Attenzione:", errore, file=sys.stderr)    (stderr: il canale degli avvisi)
+            (stderr: il canale degli avvisi)
         continue                                         (salta al giro dopo)
     """
     passaggi = SPOSTAMENTI[nome]
     risultato = {}
     for i in range(len(passaggi) - 1):
         luogo = passaggi[i]["luogo"]
-        inizio = minuti(passaggi[i]["ora"])
-        fine = minuti(passaggi[i + 1]["ora"])
+        try:
+            inizio = minuti(passaggi[i]["ora"])
+            fine = minuti(passaggi[i + 1]["ora"])
+        except ValueError as error:
+            print("Attenzione:",error, file=sys.stderr)
+            continue
         risultato[luogo] = fine - inizio
     return risultato
 
