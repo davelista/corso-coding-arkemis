@@ -66,7 +66,7 @@ def della_razza(razza):
     nomi = []
     for nome in PERSONE:
         if PERSONE[nome]["razza"] == razza:
-            nomi = nomi + nome
+            nomi.append(nome)
     return nomi
 
 
@@ -78,7 +78,7 @@ def percorso(nome):
     """
     luoghi = []
     for passaggio in SPOSTAMENTI[nome]:
-        luoghi.add(passaggio["luogo"])
+        luoghi.append(passaggio["luogo"])
     return luoghi
 
 
