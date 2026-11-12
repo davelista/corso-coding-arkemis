@@ -64,7 +64,7 @@ def della_razza(razza):
     nomi = []
     for nome in PERSONE:
         if PERSONE[nome]["razza"] == razza:
-            nomi = nomi + nome
+            nomi.append(nome)
     return nomi
 
 
