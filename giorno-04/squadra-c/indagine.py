@@ -114,8 +114,25 @@ def minuti(ora):
     Se uno non va: raise ValueError(f"Ora non valida: {ora}")
     Nel messaggio mettete anche l'ora sbagliata: serve a chi legge l'avviso.
     """
+    
+    # check 1. nell'ora c'è il ":"?
+    if not ":" in ora:
+        raise ValueError(f"Ora non valida: {ora}")
+    
     ore, mm = ora.split(":")
-    return int(ore) * 60 + int(mm)
+ 
+    ore_validata = int(ore)
+    mm_validata = int(mm)
+    
+    # check 2. le ore sono tra 0 e 23?
+    if not 0 <= ore_validata <= 23:
+        raise ValueError(f"Ora non valida: {ora}")
+    
+    # check 3. i minuti sono tra 0 e 59?
+    if not 0 <= mm_validata <= 59:
+            raise ValueError(f"Ora non valida: {ora}") 
+    
+    return ore_validata * 60 + mm_validata
 
 
 def soste(nome):
@@ -133,11 +150,18 @@ def soste(nome):
     """
     passaggi = SPOSTAMENTI[nome]
     risultato = {}
+    
     for i in range(len(passaggi) - 1):
         luogo = passaggi[i]["luogo"]
-        inizio = minuti(passaggi[i]["ora"])
-        fine = minuti(passaggi[i + 1]["ora"])
+        
+        try:
+            inizio = minuti(passaggi[i]["ora"])
+            fine = minuti(passaggi[i + 1]["ora"])
+        except ValueError as errore:
+            print("Attenzione:", errore, file=sys.stderr)
+
         risultato[luogo] = fine - inizio
+        
     return risultato
 
 
