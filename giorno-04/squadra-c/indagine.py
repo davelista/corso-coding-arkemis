@@ -49,8 +49,8 @@ def fumatori():
     fumatori()  ->  ["Merry", "Pipino", "Bilbo", ...]
     """
     nomi = []
-    for nome in PERSONE:
-        if nome[1]:
+    for nome, info in PERSONE.items():
+        if info["fuma"] :
             nomi.append(nome)
     return nomi
 
@@ -76,7 +76,7 @@ def percorso(nome):
     """
     luoghi = []
     for passaggio in SPOSTAMENTI[nome]:
-        luoghi.add(passaggio["luogo"])
+        luoghi.append(passaggio["luogo"])
     return luoghi
 
 
@@ -89,8 +89,8 @@ def entrati(luogo, dalle, alle):
 
     entrati("Cucine", "01:00", "02:00")  ->  ["Sam", "Pipino"]
     """
+    chi = []
     for nome in SPOSTAMENTI:
-        chi = []
         for passaggio in SPOSTAMENTI[nome]:
             if passaggio["luogo"] == luogo and dalle <= passaggio["ora"] < alle:
                 chi.append(nome)
