@@ -2,9 +2,9 @@
 
 | Numero | Nome | Alla tastiera nelle tappe |
 |---|---|---|
-| 1 | | 1 e 4 |
-| 2 | | 2 e 5 |
-| 3 | | 3 e 6 |
+| 1 | | 1 e 4 | Simone
+| 2 | | 2 e 5 | Francesco   
+| 3 | | 3 e 6 | Andrea T.
 
 Il numero 1 è chi si sente meno sicuro, e inizia alla tastiera. Chi non è alla tastiera legge il traceback ad alta voce e suggerisce.
 
