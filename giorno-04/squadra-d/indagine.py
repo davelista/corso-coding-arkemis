@@ -160,6 +160,17 @@ def soste(nome):
         risultato[luogo] = fine - inizio
     return risultato
 
+def dove_era(nome, ora):
+    luogo = {}
+    passaggi = SPOSTAMENTI[nome]
+    for passaggio in passaggi:
+        if  passaggio["ora"] < ora:
+            luogo = passaggio["luogo"]
+        else:
+            break
+    return luogo    
+    
+print(dove_era(nome, ora))
 
 # ---------------------------------------------------------------- L'INDAGINE
 def main():
