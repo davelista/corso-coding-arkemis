@@ -80,7 +80,8 @@ def percorso(nome):
     """
     luoghi = []
     for passaggio in SPOSTAMENTI[nome]:
-        luoghi.add(passaggio["luogo"])
+        # AttributeError: metodo inesistente
+        luoghi.append(passaggio["luogo"])
     return luoghi
 
 
