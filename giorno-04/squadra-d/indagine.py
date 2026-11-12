@@ -170,7 +170,7 @@ def dove_era(nome, ora):
             break
     return luogo    
     
-print(dove_era(nome, ora))
+
 
 # ---------------------------------------------------------------- L'INDAGINE
 def main():
