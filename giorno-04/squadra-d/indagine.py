@@ -67,7 +67,8 @@ def della_razza(razza):
     nomi = []
     for nome in PERSONE:
         if PERSONE[nome]["razza"] == razza:
-            nomi = nomi + nome
+            # TypeError: metodo errato per l'inserimento valori in array
+            nomi.append(nome)
     return nomi
 
 
