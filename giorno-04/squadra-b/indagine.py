@@ -116,7 +116,30 @@ def minuti(ora):
     Se uno non va: raise ValueError(f"Ora non valida: {ora}")
     Nel messaggio mettete anche l'ora sbagliata: serve a chi legge l'avviso.
     """
-    ore, mm = ora.split(":")
+    
+    
+    
+   
+    
+   
+    if ":" not in ora:
+     raise ValueError(f"Ora non valida: {ora}")
+    
+    ore,mm = ora.split(":")
+    
+    ore = int(ore)
+    mm = int(mm)
+        
+    
+    
+    if ore < 0 or ore > 23: 
+     raise ValueError(f"Ora non valida: {ora}")
+    
+    
+    if mm < 0 or mm > 59: 
+     raise ValueError(f"Ora non valida: {ora}")
+         
+    
     return int(ore) * 60 + int(mm)
 
 
@@ -134,12 +157,25 @@ def soste(nome):
         continue                                         (salta al giro dopo)
     """
     passaggi = SPOSTAMENTI[nome]
+    
     risultato = {}
+    
+          
     for i in range(len(passaggi) - 1):
+     
+        
         luogo = passaggi[i]["luogo"]
-        inizio = minuti(passaggi[i]["ora"])
-        fine = minuti(passaggi[i + 1]["ora"])
+        try:
+        
+            inizio = minuti(passaggi[i]["ora"])
+            fine = minuti(passaggi[i + 1]["ora"])
+         
+        except ValueError as errore: 
+            print(f"Attenzione:", errore, file=sys.stderr) 
+         
         risultato[luogo] = fine - inizio
+        print(f"orario giusto")    
+           
     return risultato
 
 
