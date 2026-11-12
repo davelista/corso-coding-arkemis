@@ -37,7 +37,7 @@ def cosa_dice(nome):
     cosa_dice("Boromir")  ->  "Nessuna testimonianza"
     """
     for t in TESTIMONIANZE:
-        if t["nome"] == nome:
+        if t["chi"] == nome:
             return t["testo"]
     return "Nessuna testimonianza"
 
