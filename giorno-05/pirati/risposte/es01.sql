@@ -8,3 +8,4 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 1
 
+SELECT nome, capitano FROM navi WHERE bandiera = 'pirata' ORDER BY nome ASC LIMIT 4;
