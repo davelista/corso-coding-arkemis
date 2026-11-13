@@ -1,6 +1,6 @@
 -- ============================================================
 --  IL VAGONE FANTASMA DELLA LINEA MENTA
---  Un giallo da risolvere con SQL · Corso intensivo di coding · Giorno 4
+--  Un giallo da risolvere con SQL · Corso intensivo di coding · Giorno 5
 --
 --  Per caricarlo:
 --      createdb giallo

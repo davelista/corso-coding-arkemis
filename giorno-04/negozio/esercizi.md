@@ -1,6 +1,6 @@
 # Allenamento sul negozio
 
-Per chi finisce prima, o per stasera. Lavorate sul database `negozio` (vedi `negozio.sql`). Niente AI: scrivete le query a mano e controllate il risultato.
+Gli esercizi con la correzione automatica sono nella cartella [`giorno-05/pirati`](../../giorno-05/pirati/esercizi.md). Questi sono in più, per chi vuole allenarsi ancora. Lavorate sul database `negozio` (vedi `negozio.sql`). Niente AI: scrivete le query a mano e controllate il risultato.
 
 1. I clienti di Torino, in ordine alfabetico per cognome.
 2. Gli ordini di più di 100 €, dal più caro al più economico.
