@@ -26,7 +26,8 @@ def presenti():
 
     presenti()  ->  ["Aragorn", "Bilbo", "Boromir", ...]
     """
-    return sorted(persone)
+    # nameError: la variabile persone non è definita
+    return sorted(PERSONE)
 
 
 # ---------------------------------------------------------------- TAPPA 2
@@ -37,7 +38,8 @@ def cosa_dice(nome):
     cosa_dice("Boromir")  ->  "Nessuna testimonianza"
     """
     for t in TESTIMONIANZE:
-        if t["nome"] == nome:
+        # keyError: la varabiale scritta non esisteva
+        if t["chi"] == nome:
             return t["testo"]
     return "Nessuna testimonianza"
 
@@ -49,7 +51,8 @@ def fumatori():
     fumatori()  ->  ["Merry", "Pipino", "Bilbo", ...]
     """
     nomi = []
-    for nome, info in PERSONE:
+    # ValueError: errore di accesso dell' item nel ciclo
+    for nome, info in PERSONE.items():
         if info["fuma"]:
             nomi.append(nome)
     return nomi
@@ -64,7 +67,8 @@ def della_razza(razza):
     nomi = []
     for nome in PERSONE:
         if PERSONE[nome]["razza"] == razza:
-            nomi = nomi + nome
+            # TypeError: metodo errato per l'inserimento valori in array
+            nomi.append(nome)
     return nomi
 
 
@@ -76,7 +80,8 @@ def percorso(nome):
     """
     luoghi = []
     for passaggio in SPOSTAMENTI[nome]:
-        luoghi.add(passaggio["luogo"])
+        # AttributeError: metodo inesistente
+        luoghi.append(passaggio["luogo"])
     return luoghi
 
 
@@ -89,10 +94,10 @@ def entrati(luogo, dalle, alle):
 
     entrati("Cucine", "01:00", "02:00")  ->  ["Sam", "Pipino"]
     """
+    chi = []
     for nome in SPOSTAMENTI:
-        chi = []
         for passaggio in SPOSTAMENTI[nome]:
-            if passaggio["luogo"] == luogo and dalle <= passaggio["ora"] < alle:
+            if passaggio["luogo"] == luogo and dalle <= passaggio["ora"] <= alle:
                 chi.append(nome)
     return chi
 
@@ -114,8 +119,17 @@ def minuti(ora):
     Se uno non va: raise ValueError(f"Ora non valida: {ora}")
     Nel messaggio mettete anche l'ora sbagliata: serve a chi legge l'avviso.
     """
-    ore, mm = ora.split(":")
-    return int(ore) * 60 + int(mm)
+
+    if ":" not in ora:
+        raise ValueError(f"Ora non valida: {ora}")
+    else:
+        ore, mm = ora.split(":")
+        if "0" <= ore <= "23" and "0" <= mm <= "59":
+            return int(ore) * 60 + int(mm)
+        else:
+            raise ValueError(f"Ora non valida: {ora}")
+         
+    # ore, mm = ora.split(":")
 
 
 def soste(nome):
@@ -135,10 +149,27 @@ def soste(nome):
     risultato = {}
     for i in range(len(passaggi) - 1):
         luogo = passaggi[i]["luogo"]
-        inizio = minuti(passaggi[i]["ora"])
-        fine = minuti(passaggi[i + 1]["ora"])
+
+        try:
+            inizio = minuti(passaggi[i]["ora"])
+            fine = minuti(passaggi[i + 1]["ora"])
+        except ValueError as errore:
+            print("Attenzione:", errore, file=sys.stderr)
+            continue
+
         risultato[luogo] = fine - inizio
     return risultato
+
+def dove_era(nome, ora):
+    luogo = {}
+    passaggi = SPOSTAMENTI[nome]
+    for passaggio in passaggi:
+        if  passaggio["ora"] < ora:
+            luogo = passaggio["luogo"]
+        else:
+            break
+    return luogo    
+    
 
 
 # ---------------------------------------------------------------- L'INDAGINE
