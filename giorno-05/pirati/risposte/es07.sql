@@ -8,9 +8,9 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 7
 
-SELECT navi.nome, SUM(bottino) 
+SELECT navi.nome, SUM(bottino) AS totale
 FROM arrembaggi 
 JOIN navi ON arrembaggi.nave_id = navi.id 
 WHERE arrembaggi.esito = 'riuscito' 
 GROUP BY navi.nome
-ORDER BY SUM(bottino) DESC;
+ORDER BY totale DESC;
