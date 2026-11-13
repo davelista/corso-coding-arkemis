@@ -5,9 +5,9 @@
 | Mattina | [`DEBUG.md`](DEBUG.md) e `squadra-…/prova-debug/` | Il debugger di VS Code, passo per passo |
 | Mattina | [`ERRORI.md`](ERRORI.md) | Leggere un traceback, gli errori più comuni, `try/except` |
 | Mattina | `squadra-a` … `squadra-e` | **Dove è stato nascosto l'Anello?** Un'indagine a Gran Burrone, a squadre |
-| Pomeriggio | `negozio/`, `giallo/` | SQL: il database degli esempi e il giallo del vagone fantasma |
+| Pomeriggio | `negozio/` | SQL: il database degli esempi |
 | Pomeriggio | [`BIGINO-SQL.md`](BIGINO-SQL.md) | Tutto SQL in una pagina: SELECT, WHERE, JOIN (con i disegni), GROUP BY, gli errori |
-| Più avanti | `progetto/` | Lo schema del vostro progetto |
+| Giorno 5 | [`../giorno-05`](../giorno-05/README.md) | Il giallo del vagone fantasma, gli esercizi dei pirati e il vostro progetto |
 
 ## Una volta sola: il venv della squadra
 
