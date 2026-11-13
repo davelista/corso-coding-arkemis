@@ -8,3 +8,4 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 2
 
+SELECT porto, data, bottino FROM arrembaggi WHERE bottino > 5000 ORDER BY bottino DESC;

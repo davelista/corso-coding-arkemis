@@ -8,3 +8,10 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 8
 
+SELECT navi.nome, navi.capitano, COUNT(arrembaggi.esito) AS riusciti
+FROM navi
+JOIN arrembaggi 
+ON arrembaggi.nave_id = navi.id
+WHERE esito='riuscito'
+GROUP BY(navi.nome, navi.capitano)
+HAVING COUNT(*) >= 2;
