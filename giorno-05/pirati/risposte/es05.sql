@@ -8,3 +8,8 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 5
 
+SELECT porto, data, navi.nome, navi.capitano 
+FROM public.arrembaggi
+JOIN public.navi 
+ON arrembaggi.nave_id = navi.id
+WHERE esito = 'fallito';
