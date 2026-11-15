@@ -2,6 +2,21 @@
 
 Il repository del corso. Ogni giorno compare una cartella nuova: `giorno-01`, `giorno-02`, …
 
+## Le slide e le domande
+
+- **Slide**: tutte nella cartella su Google Drive, giorno per giorno → [Slide del corso](https://drive.google.com/drive/folders/1l-TcKmwASVP2rdnZeEg1761rJiF4JOqm?usp=sharing). Il link è sempre lo stesso: le slide nuove arrivano lì. Il PDF si scarica da File → Scarica → PDF.
+- **Domande**: nel forum su Discord, indicando giorno e slide (es. «Giorno 04, slide 12»). La risposta resta per tutti.
+
+## Le giornate
+
+| Giorno | Argomento | Cartella |
+|---|---|---|
+| 1 | Si parte: Git e setup del computer | [giorno-01](giorno-01) |
+| 2 | Codice pulito | [giorno-02](giorno-02) |
+| 3 | Python e Git | [giorno-03](giorno-03) |
+| 4 | Debugger, errori e SQL | [giorno-04](giorno-04) |
+| 5 | Pirati, giallo SQL e progetto | [giorno-05](giorno-05) |
+
 ## La prima volta
 
 ```bash
