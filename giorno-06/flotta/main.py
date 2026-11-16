@@ -42,6 +42,11 @@ def trova(nave_id: int) -> Nave:
         raise HTTPException(status_code=404, detail="Nave non trovata")
     return nave
 
+def check_nome(nome: str) -> None:
+    for id_nave in flotta:
+        nave = flotta[id_nave]
+        if nave.nome == nome:
+            raise HTTPException(status_code=409, detail="Nome già usato")
 
 # ------------------------------------------------ già fatte insieme
 @app.get("/navi")
@@ -58,10 +63,7 @@ def leggi_nave(nave_id: int) -> Nave:
 @app.post("/navi", status_code=status.HTTP_201_CREATED)
 def crea_nave(dati: NaveNuova) -> Nave:
     # EXTRA: se il nome è già usato da un'altra nave, rispondete 409 "Nome già usato"
-    for id_nave in flotta:
-        nave = flotta[id_nave]
-        if nave.nome == dati.nome:
-            raise HTTPException(status_code=409, detail="Nome già usato")
+    check_nome(dati.nome)
     nave = Nave(id=next(contatore), **dati.model_dump())
     flotta[nave.id] = nave
     return nave
@@ -75,6 +77,8 @@ def crea_nave(dati: NaveNuova) -> Nave:
 @app.put("/navi/{nave_id}")
 def aggiorna_nave(nave_id: int, dati: NaveNuova) -> Nave:
     nave = trova(nave_id)
+    if dati.nome != nave.nome:
+        check_nome(dati.nome)
     nave = Nave(id=nave_id, **dati.model_dump())
     flotta[nave_id] = nave
     return nave
