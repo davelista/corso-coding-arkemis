@@ -9,5 +9,5 @@
 7: application/json
 8: mew
 9: pichu
-10:
-11:
+10: ghost,poison
+11: 8
