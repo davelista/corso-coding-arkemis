@@ -58,6 +58,10 @@ def leggi_nave(nave_id: int) -> Nave:
 @app.post("/navi", status_code=status.HTTP_201_CREATED)
 def crea_nave(dati: NaveNuova) -> Nave:
     # EXTRA: se il nome è già usato da un'altra nave, rispondete 409 "Nome già usato"
+    for id_nave in flotta:
+        nave = flotta[id_nave]
+        if nave.nome == dati.nome:
+            raise HTTPException(status_code=409, detail="Nome già usato")
     nave = Nave(id=next(contatore), **dati.model_dump())
     flotta[nave.id] = nave
     return nave
