@@ -1,8 +1,8 @@
 # Il Pokédex del professor Oak · le vostre risposte
 # Una risposta per riga, dopo il numero e i due punti. Esempio:   1: bulbasaur
-1:
-2:
-3:
+1: electric
+2: eevee
+3: 460
 4:
 5:
 6:
