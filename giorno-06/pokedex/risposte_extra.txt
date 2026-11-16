@@ -1,0 +1,15 @@
+# Il Pokédex del professor Oak · le domande bonus
+# Una risposta per riga, dopo il numero e i due punti. Più valori? Separateli con una virgola.
+# La 18 non c'è: è da discutere insieme alla fine.
+12: 1351
+13: bug, grass, ice
+14: forest, 190
+15: fulmine
+16: Un endpoint per caricare altri 20 pokemon partendo dal pokemon 21, si aggiunge offset per saltare i pokemon, primo pokemon trovato: spearow
+17: 400, 404
+18: Il tempo cambia sempre perchè secondo noi è i ltempo che ci mette il client ad inviare la richiesta e a ricevere la risposta dall'API (che si collega al DB)
+19: 
+    > GET /api/v2/pokemon/ditto HTTP/2
+    > Host: pokeapi.co
+    > User-Agent: curl/8.5.0
+    > Accept: */*   
