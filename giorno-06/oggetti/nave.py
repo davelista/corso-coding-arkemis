@@ -18,18 +18,29 @@ class Nave:
         return f"{self.nome}, {self.cannoni} cannoni"
 
     def arrembaggio(self, dobloni: int) -> None:
-        # TODO 1: aggiungete i dobloni al bottino di questa nave
+        #TODO 1: aggiungete i dobloni al bottino di questa nave
         self.bottino += dobloni
 
     def perde_cannoni(self, quanti: int) -> None:
-        # TODO 2: togliete i cannoni persi. Attenzione: mai sotto zero
+       #TODO 2: togliete i cannoni persi. Attenzione: mai sotto zero - None non ha bisogno di return
+
+        #self.cannoni = self.cannoni - quanti
         self.cannoni -= quanti
         if self.cannoni < 0:
             self.cannoni = 0
+        
+        #In un unica soluzione senza if, max = 0
+        #self.cannoni = max(0, self.cannoni - quanti)
 
     def e_pericolosa(self) -> bool:
-        # TODO 3: True se la nave ha più di 30 cannoni, altrimenti False
-        if self.cannoni > 30:
+        #TODO 3: True se la nave ha più di 30 cannoni, altrimenti False
+        """if (self.cannoni > 30):
             return True
         else:
-            return False
+            return False"""
+
+        return self.cannoni > 30
+
+        """def ricostruisci_cannoni(self, cannoni: int) -> None:
+            if cannoni <= 30:
+                self.cannoni = cannoni"""
