@@ -75,6 +75,11 @@ def aggiorna_nave(nave_id: int, dati: NaveNuova) -> Nave:
     flotta[nave_id] = nave
     return nave
 
+@app.delete("/navi/{nave_id}", status_code=204)
+def affonda_nave(nave_id: int) -> None:
+    trova(nave_id)
+    flotta.pop(nave_id)
+
 
 # ------------------------------------------------ la flotta di partenza (la stessa del database pirati)
 NAVI_DI_PARTENZA = [
