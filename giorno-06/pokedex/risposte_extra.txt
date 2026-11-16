@@ -1,0 +1,10 @@
+# Il Pokédex del professor Oak · le domande bonus
+# Una risposta per riga, dopo il numero e i due punti. Più valori? Separateli con una virgola.
+# La 18 non c'è: è da discutere insieme alla fine.
+12: 1351
+13: bug,steel,grass,ice
+14: forest,190
+15: Fulmine,90
+16:
+17:
+19:

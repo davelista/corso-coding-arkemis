@@ -65,6 +65,18 @@ python3 verifica.py 5      # solo la 5, con un suggerimento se è sbagliata
 | 9 | Da quale Pokémon **si evolve** Pikachu? Nella risposta su Pikachu cercate il link alla sua `species` e seguitelo | Seguire un link: una risposta vi porta alla richiesta dopo |
 | 10 | **Il caso finale.** L'ombra è il Pokémon in **posizione 94** della lista. Di che **tipi** è? Scriveteli separati da una virgola | Tutto insieme: query, link, liste |
 | 11 | **Extra.** In quanti Pokémon diversi si può **evolvere** Eevee? Dalla sua `species` arrivate alla sua `evolution_chain` | Due link di fila |
+| 12 | Quanti Pokémon esistono in tutto? Basta chiederne uno solo: `/pokemon?limit=1` | Leggere i dati di una lista |
+| 13 | Contro quali tipi è super efficace il tipo Fuoco? Cercate in `/type/fire` | Un JSON annidato su più livelli |
+| 14 | Dove vive Pikachu (`habitat`) e quanto è facile da catturare (`capture_rate`)? Non sta in `/pokemon/pikachu`… | La stessa cosa divisa in due risorse |
+| 15 | Come si chiama in italiano la mossa **Thunderbolt**, e quanta potenza ha? Aprite `/move/thunderbolt` e con Ctrl+F cercate `"it"` | Trovare l'elemento giusto in una lista |
+| 16 | Aprite `/pokemon?limit=20`. Cosa c'è nel campo `next`? Apritelo: cosa è cambiato nell'indirizzo? E quale Pokémon trovate per primo? | La paginazione, cioè come un'API vi dà una lista a pezzi |
+| 17 | Provate `/pokemon/Pikachu` con la P maiuscola, poi `/pokemon/pika`. Che codici rispondono? Ve lo aspettavate? | I codici di stato e non dare niente per scontato |
+| 18 | Strumenti per sviluppatori (F12), scheda Rete: aprite `/pokemon/mew` e guardate la colonna Tempo. Ricaricate la pagina: il tempo cambia? Perché secondo voi? | Misurare una richiesta |
+| 19 | `curl -v https://pokeapi.co/api/v2/pokemon/ditto`: quali header manda curl senza che glieli abbiate chiesti? Sono le righe che iniziano con `>` | Leggere la richiesta, non solo la risposta. Oggi pomeriggio sarete voi a riceverle |
+
+**Sfida finale: Indovina chi 🎭**
+
+Uno di voi pensa a un Pokémon, gli altri devono indovinarlo solo con richieste: tipo, peso, abilità… Vince chi ci arriva con meno richieste.
 
 ## Le regole
 
