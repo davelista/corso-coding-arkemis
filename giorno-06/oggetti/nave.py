@@ -5,6 +5,7 @@ __init__ e descrivi sono già scritti. Voi completate i tre metodi con il TODO,
 finché  pytest test_nave.py -v  è tutto verde.
 """
 
+max_cannoni=100
 
 class Nave:
     def __init__(self, nome: str, capitano: str, cannoni: int) -> None:
@@ -20,7 +21,7 @@ class Nave:
     def arrembaggio(self, dobloni: int) -> None:
         # TODO 1: aggiungete i dobloni al bottino di questa nave
         self.bottino = self.bottino + dobloni
-        return self.bottino
+    
 
     def perde_cannoni(self, quanti: int) -> None:
         # TODO 2: togliete i cannoni persi. Attenzione: mai sotto zero
@@ -32,7 +33,11 @@ class Nave:
 
     def e_pericolosa(self) -> bool:
         # TODO 3: True se la nave ha più di 30 cannoni, altrimenti False
-        if self.cannoni > 30:
-            return True
-        else:
-            return False
+        return self.cannoni > 30
+    
+    def ricostruisci_cannoni(self, quanti:int)->None:
+        self.cannoni += quanti
+        if self.cannoni >max_cannoni:
+            self.cannoni=max_cannoni
+
+        

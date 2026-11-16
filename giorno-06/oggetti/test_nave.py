@@ -20,6 +20,15 @@ def test_arrembaggio_aggiunge_al_bottino():
     perla.arrembaggio(6500)
     assert perla.bottino == 10700
 
+def test_arrembaggio_bottino():
+    perla = Nave("Perla Nera", "Jack Sparrow", 32)
+    olandese = Nave("Olandese", "Pippo", 43)
+    perla.arrembaggio(4200)
+    perla.arrembaggio(5000)
+    olandese.arrembaggio(6500)
+    assert perla.bottino == 9200
+    assert olandese.bottino == 6500
+
 
 def test_il_bottino_e_di_ogni_nave():
     perla = Nave("Perla Nera", "Jack Sparrow", 32)
@@ -43,3 +52,13 @@ def test_mai_sotto_zero():
 def test_e_pericolosa():
     assert Nave("Olandese Volante", "Davy Jones", 46).e_pericolosa() is True
     assert Nave("Providence", "Hector Barbossa", 30).e_pericolosa() is False
+
+def test_ricostruisci_cannoni():
+    perla = Nave("Perla Nera", "Jack Sparrow", 32)
+    perla.ricostruisci_cannoni(10)
+    assert perla.cannoni == 42
+
+def test_ricostruisci_tutti_cannoni():
+    perla = Nave("Perla Nera", "Jack Sparrow", 32)
+    perla.ricostruisci_cannoni(110)
+    assert perla.cannoni == 100
