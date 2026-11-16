@@ -66,6 +66,17 @@ def crea_nave(dati: NaveNuova) -> Nave:
 # ------------------------------------------------ OBBLIGATORIO: tocca a voi
 # PUT /navi/{nave_id}     -> sostituisce la nave con i dati nuovi, risponde 200 con la nave
 #                            404 "Nave non trovata" se non esiste
+
+@app.put("/navi/{nave_id}")
+def aggiorna_nave(nave_id: int, dati: NaveNuova) -> Nave:
+    trova(nave_id)
+    
+    nave = Nave(id = nave_id, **dati.model_dump())
+    flotta[nave_id] = nave
+    
+    return nave
+
+
 # DELETE /navi/{nave_id}  -> affonda la nave, risponde 204 senza corpo
 #                            404 "Nave non trovata" se non esiste
 
