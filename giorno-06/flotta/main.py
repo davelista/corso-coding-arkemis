@@ -69,6 +69,17 @@ def crea_nave(dati: NaveNuova) -> Nave:
 # DELETE /navi/{nave_id}  -> affonda la nave, risponde 204 senza corpo
 #                            404 "Nave non trovata" se non esiste
 
+@app.put("/navi/{nave_id}", status_code=status.HTTP_200_OK)
+def modifica_nave(nave_id: int, dati: NaveNuova) -> Nave:
+    trova(nave_id)
+    nave = Nave(id=nave_id, **dati.model_dump())
+    flotta[nave.id] = nave
+    return nave
+
+@app.delete("/navi/{nave_id}", status_code=status.HTTP_204_NO_CONTENT)
+def affonda_nave(nave_id: int) -> None:
+    trova(nave_id)
+    flotta.pop(nave_id)
 
 # ------------------------------------------------ la flotta di partenza (la stessa del database pirati)
 NAVI_DI_PARTENZA = [
