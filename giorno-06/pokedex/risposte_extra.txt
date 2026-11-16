@@ -1,0 +1,11 @@
+# Il Pokédex del professor Oak · le domande bonus
+# Una risposta per riga, dopo il numero e i due punti. Più valori? Separateli con una virgola.
+# La 18 non c'è: è da discutere insieme alla fine.
+12:1351
+13:bug,steel,grass,ice
+14:forest,190
+15:Fulmine,90
+16:spearow
+17:200,404
+18:Cache (La cache, la prima chiamata è più lunga perchè va dritta sul server e poi per ogni chiamata va a controllare se c'è già stata una risposta e la distanza è più corta.)
+19:GET /api/v2/pokemon/ditto HTTP/2, Host: pokeapi.co, User-Agent: curl/8.5.0, Accept: */*
