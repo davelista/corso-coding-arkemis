@@ -19,12 +19,17 @@ class Nave:
 
     def arrembaggio(self, dobloni: int) -> None:
         # TODO 1: aggiungete i dobloni al bottino di questa nave
-        pass
+        self.bottino += dobloni
 
     def perde_cannoni(self, quanti: int) -> None:
         # TODO 2: togliete i cannoni persi. Attenzione: mai sotto zero
-        pass
+        self.cannoni -= quanti
+        if self.cannoni < 0:
+            self.cannoni = 0
 
     def e_pericolosa(self) -> bool:
         # TODO 3: True se la nave ha più di 30 cannoni, altrimenti False
-        pass
+        if self.cannoni > 30:
+            return True
+        else:
+            return False
