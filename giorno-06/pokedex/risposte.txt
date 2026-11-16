@@ -6,8 +6,8 @@
 4: chlorophyll
 5: 404
 6: 400
-7:
-8:
-9:
+7: application/json
+8: mew
+9: pichu
 10:
 11:
