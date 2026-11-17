@@ -127,6 +127,18 @@ def crea_ospite(dati: OspiteNuovo):
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova (tutti i campi, senza id)
 #   -> 200 e la guardia aggiornata
 #   -> 404 "Guardia non trovata" se l'id non c'è
+@app.put("/guardie/{guardia_id}")
+def aggiorna_guardia(guardia_id: int, dati:GuardiaNuova):
+
+    if guardia_id not in guardie.keys():
+        raise HTTPException(status_code=404, detail='Guardia non trovata')
+
+    guardiaSelezionata = GuardiaNuova(**dati.model_dump())
+    guardie[guardia_id] = guardiaSelezionata
+
+    return guardie[guardia_id]
+
+    
 
 
 
