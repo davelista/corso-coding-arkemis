@@ -52,7 +52,8 @@ def lista_stanze() -> list[Stanza]:
     visibili = []
     for stanza in stanze.values():
         # TODO: aggiungete la stanza a visibili solo se NON è segreta
-        pass
+        if not stanza.segreta: 
+            visibili.append(stanza)
     return visibili
 
 
