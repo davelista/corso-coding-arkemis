@@ -64,11 +64,15 @@ def lista_stanze() -> list[Stanza]:
 
 @app.get("/stanze/{stanza_id}")
 def leggi_stanza(stanza_id: int) -> Stanza:
-    # TODO: al posto di questa riga, il vostro codice.
     # (501 = «non ancora fatto»: è un codice di stato vero, si usa proprio così)
-    raise HTTPException(status_code=501, detail="Livello 2: ancora da fare")
+    if stanza_id not in stanze.keys():
+        raise HTTPException(status_code=404, detail='Stanza non trovata')
+    
+    return stanze[stanza_id]
+    
 
-
+    
+### SECONDA CIFRA: 3 ###
 # ============================================================ LIVELLO 3 · GET con un filtro
 # GET /telecamere               -> 200 e tutte le telecamere
 # GET /telecamere?stanza_id=4   -> 200 e solo quelle della stanza 4
