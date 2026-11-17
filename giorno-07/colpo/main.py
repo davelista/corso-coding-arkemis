@@ -80,31 +80,6 @@ def leggi_stanza(stanza_id: int) -> Stanza:
 # GET /telecamere?stanza_id=4   -> 200 e solo quelle della stanza 4
 # Il filtro è facoltativo: nella funzione è un argomento con il valore di partenza None.
 # Questa volta scrivete voi anche il decoratore @app.get(...) e la riga del def.
-"""
-@app.get("/telecamere")
-def lista_telecamere() -> list[Telecamera]:
-    risultato = []
-
-    for telecamera in telecamere.values():
-        risultato.append(telecamera)
-        
-    return risultato
-
-
-@app.get("/telecamere")
-def leggi_telecamere_in_stanza(stanza_id: int | None = None) -> list[Telecamera]:
-    
-    risultato = []
-    telecamera = telecamere.get(stanza_id)
-    if not stanza_id:
-        raise HTTPException(status_code=404, detail="Stanza non trovata")
-    
-    for telecamera in telecamere.values():
-        if stanza_id == telecamera.stanza_id:
-            risultato.append(telecamera)  
-   
-    return risultato
-"""
 
 @app.get("/telecamere")
 def leggi_telecamere(stanza_id: int | None = None) -> list[Telecamera]:
@@ -126,7 +101,21 @@ def leggi_telecamere(stanza_id: int | None = None) -> list[Telecamera]:
 #                                 -> 404 "Stanza non trovata" se la stanza non c'è
 # Due cose che sapete già, insieme: il controllo del livello 2 e il filtro del livello 3.
 
+@app.get("/stanze/{stanza_id}/guardie")
+def lista_guardie_nella_stanza(stanza_id: int) -> list[Guardia]:
 
+    stanza = stanze.get(stanza_id)
+
+    if stanza is None:
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+    
+    risultato = []
+    
+    for guardia in guardie.values():
+        if guardia.stanza_id == stanza_id:
+            risultato.append(guardia)
+
+    return risultato
 
 # ============================================================ LIVELLO 5 · POST, crea
 # POST /ospiti, con il corpo {"nome": "...", "professione": "..."}
