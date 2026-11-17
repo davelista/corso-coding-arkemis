@@ -90,13 +90,23 @@ def lista_telecamere(stanza_id: int | None = None) -> list[Telecamera]:
         return telecamere_per_stanza
     return tutte_le_telecamere
 
-
+### TERZA CIFRA: 1 ###
 # ============================================================ LIVELLO 4 · GET, chi c'è in una stanza
 # GET /stanze/{stanza_id}/guardie -> 200 e le guardie che stanno davanti a quella stanza
 #                                 -> 404 "Stanza non trovata" se la stanza non c'è
 # Due cose che sapete già, insieme: il controllo del livello 2 e il filtro del livello 3.
 
+@app.get("/stanze/{stanza_id}/guardie")
+def guardie_davanti_la_stanza(stanza_id : int) :
+    if stanza_id not in stanze.keys():
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+    guardie_on_stanza = []
+    for guardia in guardie.values():
+        if guardia.stanza_id == stanza_id:
+            guardie_on_stanza.append(guardia)
+    return guardie_on_stanza
 
+### QUARTA CIFRA: 2 -> ID 3, 5###
 
 # ============================================================ LIVELLO 5 · POST, crea
 # POST /ospiti, con il corpo {"nome": "...", "professione": "..."}
