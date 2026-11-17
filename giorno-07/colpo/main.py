@@ -65,7 +65,9 @@ def lista_stanze() -> list[Stanza]:
 def leggi_stanza(stanza_id: int) -> Stanza:
     stanza = stanze.get(stanza_id)    # .get risponde None se l'id non c'è (le [] darebbero errore)
     if stanza is None:
-        raise HTTPException(status_code=404, detail="Ospite non trovato")
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+    
+    return stanza
     # (501 = «non ancora fatto»: è un codice di stato vero, si usa proprio così)
     # raise HTTPException(status_code=501, detail="Livello 2: ancora da fare")
 
