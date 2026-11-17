@@ -79,6 +79,16 @@ def leggi_stanza(stanza_id: int) -> Stanza:
 # Il filtro è facoltativo: nella funzione è un argomento con il valore di partenza None.
 # Questa volta scrivete voi anche il decoratore @app.get(...) e la riga del def.
 
+@app.get("/telecamere")
+def lista_telecamere(stanza_id: int | None = None) -> list[Telecamera]:
+    tutte_le_telecamere = list(telecamere.values())
+    telecamere_per_stanza = []
+    if stanza_id != None:
+        for telecamera in tutte_le_telecamere:
+            if telecamera.stanza_id == stanza_id:
+                telecamere_per_stanza.append(telecamera)
+        return telecamere_per_stanza
+    return tutte_le_telecamere
 
 
 # ============================================================ LIVELLO 4 · GET, chi c'è in una stanza
