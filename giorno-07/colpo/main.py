@@ -130,6 +130,14 @@ def nuovo_ospite(dati: OspiteNuovo)-> Ospite:
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova (tutti i campi, senza id)
 #   -> 200 e la guardia aggiornata
 #   -> 404 "Guardia non trovata" se l'id non c'è
+@app.put("/guardie/{guardia_id}")
+def aggiorna_guardia(guardia_id: int, dati: GuardiaNuova) -> Guardia:
+    guardia = guardie.get(guardia_id)    # .get risponde None se l'id non c'è (le [] darebbero errore)
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+    guardia = Guardia(id=guardia_id, **dati.model_dump())
+    guardie[guardia.id] = guardia
+    return guardia
 
 
 
