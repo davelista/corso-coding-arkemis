@@ -77,7 +77,18 @@ def leggi_stanza(stanza_id: int) -> Stanza:
 # GET /telecamere?stanza_id=4   -> 200 e solo quelle della stanza 4
 # Il filtro è facoltativo: nella funzione è un argomento con il valore di partenza None.
 # Questa volta scrivete voi anche il decoratore @app.get(...) e la riga del def.
-
+@app.get("/telecamere")
+def lista_telecamere(stanza_id: int | None = None) -> list[Telecamera]:
+    if stanza_id:
+        stanza= stanze.get(stanza_id)
+        if stanza is None:
+            raise HTTPException(status_code=404, detail="Stanza non trovata")
+        telecamere_stanza = []
+        for telecamera in telecamere.values():
+            if telecamera.stanza_id == stanza_id:
+                telecamere_stanza.append(telecamera)
+        return telecamere_stanza
+    return list(telecamere.values())
 
 
 # ============================================================ LIVELLO 4 · GET, chi c'è in una stanza
