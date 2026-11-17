@@ -8,3 +8,6 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 10
 
+SELECT n.nome, n.capitano
+FROM navi n
+WHERE n.id NOT IN (SELECT a.nave_id FROM arrembaggi a); 
