@@ -114,7 +114,14 @@ def guardie_davanti_la_stanza(stanza_id : int) :
 # Il corpo arriva come OspiteNuovo (senza id). Voi create un Ospite (con l'id) e lo mettete in ospiti.
 # Codice 201: @app.post("/ospiti", status_code=status.HTTP_201_CREATED)
 
+@app.post("/ospiti")
+def crea_ospite(dati: OspiteNuovo):
 
+    nuovoId = prossimo_id(ospiti)
+    nuovoOspite = Ospite(id=nuovoId, **dati.model_dump())
+
+    ospiti[nuovoId]=nuovoOspite
+    return nuovoOspite
 
 # ============================================================ LIVELLO 6 · PUT, sostituisce
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova (tutti i campi, senza id)
