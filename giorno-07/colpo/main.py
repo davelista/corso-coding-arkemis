@@ -51,8 +51,8 @@ def leggi_ospite(ospite_id: int) -> Ospite:
 def lista_stanze() -> list[Stanza]:
     visibili = []
     for stanza in stanze.values():
-        # TODO: aggiungete la stanza a visibili solo se NON è segreta
-        pass
+        if not stanza.segreta:
+            visibili.append(stanza)
     return visibili
 
 
@@ -63,9 +63,11 @@ def lista_stanze() -> list[Stanza]:
 
 @app.get("/stanze/{stanza_id}")
 def leggi_stanza(stanza_id: int) -> Stanza:
-    # TODO: al posto di questa riga, il vostro codice.
+    stanza = stanze.get(stanza_id)    # .get risponde None se l'id non c'è (le [] darebbero errore)
+    if stanza is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
     # (501 = «non ancora fatto»: è un codice di stato vero, si usa proprio così)
-    raise HTTPException(status_code=501, detail="Livello 2: ancora da fare")
+    # raise HTTPException(status_code=501, detail="Livello 2: ancora da fare")
 
 
 # ============================================================ LIVELLO 3 · GET con un filtro
