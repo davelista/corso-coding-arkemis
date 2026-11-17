@@ -52,7 +52,8 @@ def lista_stanze() -> list[Stanza]:
     visibili = []
     for stanza in stanze.values():
         # TODO: aggiungete la stanza a visibili solo se NON è segreta
-        pass
+        if not stanza.segreta: 
+            visibili.append(stanza)
     return visibili
 
 
@@ -65,8 +66,14 @@ def lista_stanze() -> list[Stanza]:
 def leggi_stanza(stanza_id: int) -> Stanza:
     # TODO: al posto di questa riga, il vostro codice.
     # (501 = «non ancora fatto»: è un codice di stato vero, si usa proprio così)
-    raise HTTPException(status_code=501, detail="Livello 2: ancora da fare")
+    #raise HTTPException(status_code=501, detail="Livello 2: ancora da fare")
 
+    stanza = stanze.get(stanza_id)
+    if stanza is None:
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+
+    return stanza
+    
 
 # ============================================================ LIVELLO 3 · GET con un filtro
 # GET /telecamere               -> 200 e tutte le telecamere
@@ -74,6 +81,19 @@ def leggi_stanza(stanza_id: int) -> Stanza:
 # Il filtro è facoltativo: nella funzione è un argomento con il valore di partenza None.
 # Questa volta scrivete voi anche il decoratore @app.get(...) e la riga del def.
 
+@app.get("/telecamere")
+def leggi_telecamere(stanza_id: int | None = None) -> list[Telecamera]:
+
+    if stanza_id is None:
+        return list(telecamere.values())
+
+    risultato = []
+
+    for telecamera in telecamere.values():
+        if telecamera.stanza_id == stanza_id:
+            risultato.append(telecamera)
+
+    return risultato
 
 
 # ============================================================ LIVELLO 4 · GET, chi c'è in una stanza
@@ -81,7 +101,21 @@ def leggi_stanza(stanza_id: int) -> Stanza:
 #                                 -> 404 "Stanza non trovata" se la stanza non c'è
 # Due cose che sapete già, insieme: il controllo del livello 2 e il filtro del livello 3.
 
+@app.get("/stanze/{stanza_id}/guardie")
+def lista_guardie_nella_stanza(stanza_id: int) -> list[Guardia]:
 
+    stanza = stanze.get(stanza_id)
+
+    if stanza is None:
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+    
+    risultato = []
+    
+    for guardia in guardie.values():
+        if guardia.stanza_id == stanza_id:
+            risultato.append(guardia)
+
+    return risultato
 
 # ============================================================ LIVELLO 5 · POST, crea
 # POST /ospiti, con il corpo {"nome": "...", "professione": "..."}
@@ -89,7 +123,18 @@ def leggi_stanza(stanza_id: int) -> Stanza:
 # Il corpo arriva come OspiteNuovo (senza id). Voi create un Ospite (con l'id) e lo mettete in ospiti.
 # Codice 201: @app.post("/ospiti", status_code=status.HTTP_201_CREATED)
 
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def crea_ospite(nuovo_ospite: OspiteNuovo) -> Ospite:
 
+    ospite = Ospite(
+        id=prossimo_id(ospiti),
+        nome=nuovo_ospite.nome,
+        professione=nuovo_ospite.professione
+    )
+
+    ospiti[ospite.id] = ospite
+
+    return ospite
 
 # ============================================================ LIVELLO 6 · PUT, sostituisce
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova (tutti i campi, senza id)
