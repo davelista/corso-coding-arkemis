@@ -52,10 +52,11 @@ def lista_stanze() -> list[Stanza]:
     visibili = []
     for stanza in stanze.values():
         # TODO: aggiungete la stanza a visibili solo se NON è segreta
-        pass
+        if stanza.segreta == False:
+            visibili.append(stanza)
     return visibili
 
-
+### PRIMA CIFRA: 8 ###
 # ============================================================ LIVELLO 2 · GET, uno solo
 # GET /stanze/{stanza_id} -> 200 e la stanza (anche se è segreta!)
 #                         -> 404 "Stanza non trovata" se l'id non c'è
