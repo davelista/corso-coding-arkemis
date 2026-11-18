@@ -84,17 +84,18 @@ def nuovo_ospite(dati: OspiteNuovo) -> Ospite:
     return riga
 
 
-
-
-
-
 # ============================================================ LIVELLO 3 · DELETE
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
 #
 #     DELETE FROM ospiti WHERE id = %s RETURNING id
 #
 # Se l'ospite non c'era, RETURNING non restituisce niente: .fetchone() è None.
-
+@app.delete("/ospiti/{ospite_id}", status_code= status.HTTP_204_NO_CONTENT)
+def elimina_ospite(ospite_id: int) -> None:
+    with connetti() as conn:
+        riga= conn.execute("DELETE FROM ospiti WHERE id= %s RETURNING id", (ospite_id,)).fetchone()
+    if riga is None:
+                raise HTTPException(status_code=404, detail="Ospite non trovato")    
 
 
 # ============================================================ LIVELLO 4 · UPDATE
