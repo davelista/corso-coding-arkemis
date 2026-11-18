@@ -57,8 +57,12 @@ def lista_ospiti() -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int) -> Ospite:
-    # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+    with connetti() as conn:
+        ospite = conn.execute("SELECT * FROM ospiti WHERE id = %s", (ospite_id,)).fetchone()
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    return ospite
+    # raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
 
 
 # ============================================================ LIVELLO 2 · INSERT
@@ -70,8 +74,16 @@ def leggi_ospite(ospite_id: int) -> Ospite:
 #
 # RETURNING * fa restituire all'INSERT la riga appena creata: con .fetchone() la prendete.
 # Due buchi, due valori nella tupla, nello stesso ordine: (dati.nome, dati.professione)
-
-
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def aggiungi_ospite(dati: OspiteNuovo) -> Ospite:
+    try:
+        with connetti() as conn:
+            nuovo_ospite = conn.execute(
+                "INSERT INTO ospiti (nome, professione) VALUES (%s, %s) RETURNING *", 
+                (dati.nome, dati.professione,)).fetchone()
+        return nuovo_ospite
+    except:
+        raise HTTPException(status_code=409, detail="Nome già in lista")
 
 # ============================================================ LIVELLO 3 · DELETE
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
@@ -79,8 +91,14 @@ def leggi_ospite(ospite_id: int) -> Ospite:
 #     DELETE FROM ospiti WHERE id = %s RETURNING id
 #
 # Se l'ospite non c'era, RETURNING non restituisce niente: .fetchone() è None.
+@app.delete("/ospiti/{ospite_id}", status_code=status.HTTP_204_NO_CONTENT)
+def cancella_ospite(ospite_id: int) -> None:
+    with connetti() as conn:
+        ospite = conn.execute("DELETE FROM ospiti WHERE id = %s RETURNING id", (ospite_id,) ).fetchone()
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
 
-
+    return ospite
 
 # ============================================================ LIVELLO 4 · UPDATE
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova -> 200 e la guardia aggiornata, oppure 404
@@ -92,7 +110,13 @@ def leggi_ospite(ospite_id: int) -> Ospite:
 #     RETURNING *
 #
 # Cinque buchi: l'ultimo è l'id.
-
-
+@app.put("/guardie/{guardia_id}")
+def aggiorna_guardia(guardia_id: int, dati: GuardiaNuova) -> Guardia:
+    with connetti() as conn:
+        guardia = conn.execute("UPDATE guardie SET nome = %s, stanza_id = %s, turno = %s, anni_servizio = %s WHERE id = %s RETURNING *",
+            (dati.nome, dati.stanza_id, dati.turno, dati.anni_servizio, guardia_id,)).fetchone()
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+    return guardia
 
 # ============================================================ EXTRA: nel README
