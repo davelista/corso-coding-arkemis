@@ -16,6 +16,9 @@ Il repository del corso. Ogni giorno compare una cartella nuova: `giorno-01`, `g
 | 3 | Python e Git | [giorno-03](giorno-03) |
 | 4 | Debugger, errori e SQL | [giorno-04](giorno-04) |
 | 5 | Pirati, giallo SQL e progetto | [giorno-05](giorno-05) |
+| 6 | HTTP e la prima API | [giorno-06](giorno-06) |
+| 7 | Oggetti, il colpo e il database | [giorno-07](giorno-07) |
+| 8 | Il colpo passo per passo, la banda e il database | [giorno-08](giorno-08) |
 
 ## La prima volta
 
