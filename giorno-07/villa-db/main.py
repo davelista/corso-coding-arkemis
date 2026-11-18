@@ -57,8 +57,14 @@ def lista_ospiti() -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int) -> Ospite:
-    # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+        with connetti() as conn:
+            riga= conn.execute("SELECT * FROM ospiti WHERE id = %s", (ospite_id,)).fetchone()
+            
+        if riga is None:
+            raise HTTPException(status_code=404, detail="Ospite non trovato")
+        
+        return riga
+
 
 
 # ============================================================ LIVELLO 2 · INSERT
