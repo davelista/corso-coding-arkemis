@@ -108,7 +108,13 @@ def elimina_ospite(ospite_id: int) -> None:
 #     RETURNING *
 #
 # Cinque buchi: l'ultimo è l'id.
-
+@app.put("/guardie/{guardia_id}")
+def sostituisci_guardia(guardia_id:int, dati:GuardiaNuova)->Guardia:
+    with connetti() as conn:
+          riga= conn.execute("UPDATE guardie SET nome = %s, stanza_id = %s, turno = %s, anni_servizio = %s WHERE id = %s RETURNING *", (dati.nome, dati.stanza_id, dati.turno, dati.anni_servizio, guardia_id)).fetchone()
+          if riga is None:
+                raise HTTPException(status_code=404, detail="Guardia non trovata")    
+    return riga
 
 
 # ============================================================ EXTRA: nel README
