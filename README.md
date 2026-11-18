@@ -19,6 +19,7 @@ Il repository del corso. Ogni giorno compare una cartella nuova: `giorno-01`, `g
 | 6 | HTTP e la prima API | [giorno-06](giorno-06) |
 | 7 | Oggetti, il colpo e il database | [giorno-07](giorno-07) |
 | 8 | Il colpo passo per passo, la banda e il database | [giorno-08](giorno-08) |
+| 9 | SQLAlchemy e il biglietto d'oro | [giorno-09](giorno-09) |
 
 ## La prima volta
 
