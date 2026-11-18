@@ -76,6 +76,12 @@ def leggi_ospite(ospite_id: int) -> Ospite:
 # RETURNING * fa restituire all'INSERT la riga appena creata: con .fetchone() la prendete.
 # Due buchi, due valori nella tupla, nello stesso ordine: (dati.nome, dati.professione)
 
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def crea_ospite(ospite: OspiteNuovo) -> Ospite:
+    with connetti() as conn:
+        nuovoOspite = conn.execute("INSERT INTO ospiti (nome, professione) VALUES (%s, %s) RETURNING *",(ospite.nome, ospite.professione,)).fetchone()
+
+    return nuovoOspite
 
 
 # ============================================================ LIVELLO 3 · DELETE
