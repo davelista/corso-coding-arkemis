@@ -57,13 +57,23 @@ def lista_ospiti() -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int) -> Ospite:
-    # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+    with connetti() as conn:
+        riga = conn.execute("SELECT * FROM ospiti WHERE id = %s", (ospite_id,)).fetchone()
+        if riga is None:
+            raise HTTPException(status_code=404, detail="Ospite non trovato")
+        return riga
+    # raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
 
 
 # ============================================================ LIVELLO 2 · INSERT
 # POST /ospiti, con il corpo di un OspiteNuovo -> 201 e l'ospite salvato, con l'id che gli dà il database
 #
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def crea_ospite(ospite: OspiteNuovo) -> Ospite:
+    with connetti() as conn:
+        riga = conn.execute("INSERT INTO ospiti (nome, professione) VALUES (%s, %s) RETURNING *", (ospite.nome, ospite.professione,)).fetchone()
+        return riga
+
 #     INSERT INTO ospiti (nome, professione)
 #     VALUES (%s, %s)
 #     RETURNING *
@@ -75,6 +85,9 @@ def leggi_ospite(ospite_id: int) -> Ospite:
 
 # ============================================================ LIVELLO 3 · DELETE
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
+
+
+
 #
 #     DELETE FROM ospiti WHERE id = %s RETURNING id
 #
