@@ -89,6 +89,8 @@ def nuovo_ospite(dati: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
     
     # oggetto nuovo
     ospite = OspiteDB(nome=dati.nome, professione=dati.professione)
+    #per non mettere tutti i dati a mano usa model_dump() tranne nel PUT
+    #ospite = OspiteDB(**dati.model_dump())
     
     # aggiungo a sessione
     db.add(ospite)
@@ -109,7 +111,8 @@ def nuovo_ospite(dati: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
 #     db.commit()
 # Non restituite niente: il 204 va nel decoratore.
 @app.delete("/ospiti/{ospite_id}", status_code=status.HTTP_204_NO_CONTENT)
-def del_ospite(ospite_id: int,  db: Session = Depends(get_db)):
+#dobbiamo indicare -> None per specificare cosa deve ritornare
+def del_ospite(ospite_id: int, db: Session = Depends(get_db))-> None:
 
     #chiedo alla sessione
     ospite = db.get(OspiteDB, ospite_id)
@@ -120,8 +123,6 @@ def del_ospite(ospite_id: int,  db: Session = Depends(get_db)):
     db.delete(ospite)
     db.commit()
     
-
-
 # ============================================================ LIVELLO 4 · modificare
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova -> 200 e la guardia aggiornata,
 # oppure 404 "Guardia non trovata"
@@ -131,6 +132,25 @@ def del_ospite(ospite_id: int,  db: Session = Depends(get_db)):
 #     ... (un attributo per riga, tutti e quattro)
 #     db.commit()
 # La sessione si accorge da sola di cosa è cambiato.
+
+@app.put("/guardie/{guardia_id}")
+def modifica_guardia(guardia_id:int, dati: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+
+    guardia = db.get(GuardiaDB, guardia_id)        
+    #controllo
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+
+    guardia.nome = dati.nome
+    guardia.stanza_id = dati.stanza_id
+    guardia.turno = dati.turno
+    guardia.anni_servizio = dati.anni_servizio
+
+    db.commit()
+
+    return guardia
+
+    
 
 
 
