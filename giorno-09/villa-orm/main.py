@@ -155,3 +155,35 @@ def modifica_guardia(guardia_id:int, dati: GuardiaNuova, db: Session = Depends(g
 
 
 # ============================================================ EXTRA: nel README
+"""
+1. **Chi c'è davanti a una stanza:** `GET /stanze/{stanza_id}/guardie`. Prima `db.get(StanzaDB, stanza_id)` per il 404 `"Stanza non trovata"`, poi `select(GuardiaDB).where(GuardiaDB.stanza_id == stanza_id)` e `db.scalars(…).all()`
+"""
+@app.get("/stanze/{stanza_id}/guardie")
+def guardie_in_stanza(stanza_id: int, db: Session = Depends(get_db)) -> list[Guardia]:
+
+    # verifico se la stanza esiste
+    stanza = db.get(StanzaDB, stanza_id)    
+    if stanza is None:
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+
+    # cerco le guardie nella stanza
+    guardie = db.scalars(select(GuardiaDB)
+           .where(GuardiaDB.stanza_id == stanza_id)).all()
+
+    return guardie
+
+
+
+
+
+
+
+
+
+"""
+2. **Il 409 del nome:** `POST /ospiti` con un nome già in lista. Il database dice di no (`UNIQUE`), e in Python arriva al `db.commit()` come `IntegrityError` (da `sqlalchemy.exc`). Prendetela con `try/except`, fate `db.rollback()` e rispondete 409 `"Nome già in lista"`
+"""
+
+"""
+3. **La stanza che non c'è:** `PUT /guardie/3` con `stanza_id` 42 → 404 `"Stanza non trovata"`. Controllate con `db.get(StanzaDB, dati.stanza_id)` prima di cambiare la guardia
+"""
