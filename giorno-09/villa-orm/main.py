@@ -108,7 +108,18 @@ def nuovo_ospite(dati: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
 #     db.delete(ospite)
 #     db.commit()
 # Non restituite niente: il 204 va nel decoratore.
+@app.delete("/ospiti/{ospite_id}", status_code=status.HTTP_204_NO_CONTENT)
+def del_ospite(ospite_id: int,  db: Session = Depends(get_db)):
 
+    #chiedo alla sessione
+    ospite = db.get(OspiteDB, ospite_id)
+    #controllo
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+
+    db.delete(ospite)
+    db.commit()
+    
 
 
 # ============================================================ LIVELLO 4 · modificare
