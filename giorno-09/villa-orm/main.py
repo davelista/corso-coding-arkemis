@@ -99,6 +99,12 @@ def aggiungi_ospite(ospite: OspiteNuovo, db: Session = Depends(get_db)) -> Ospit
 #     db.delete(ospite)
 #     db.commit()
 # Non restituite niente: il 204 va nel decoratore.
+@app.delete("/ospiti/{ospite_id}", status_code = status.HTTP_204_NO_CONTENT)
+def elimina_ospite(ospite_id: int, db: Session = Depends(get_db)) -> None:
+    ospite = leggi_ospite(ospite_id, db)
+    db.delete(ospite)
+    db.commit()
+    
 
 
 
