@@ -84,7 +84,22 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.refresh(ospite)                              riletto: adesso ha l'id
 # Poi lo restituite. Il 201 va nel decoratore, come ieri.
 
-
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def nuovo_ospite(dati: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
+    
+    # oggetto nuovo
+    ospite = OspiteDB(nome=dati.nome, professione=dati.professione)
+    
+    # aggiungo a sessione
+    db.add(ospite)
+    
+    # salvo
+    db.commit()
+    
+    # refresh id
+    db.refresh(ospite)
+    
+    return ospite
 
 # ============================================================ LIVELLO 3 · delete
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
