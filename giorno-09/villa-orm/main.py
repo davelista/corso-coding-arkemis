@@ -106,8 +106,6 @@ def elimina_ospite(ospite_id: int, db: Session = Depends(get_db)) -> None:
     db.commit()
     
 
-
-
 # ============================================================ LIVELLO 4 · modificare.  @mio: Sostituisci guardia
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova -> 200 e la guardia aggiornata,
 # oppure 404 "Guardia non trovata"
@@ -118,6 +116,22 @@ def elimina_ospite(ospite_id: int, db: Session = Depends(get_db)) -> None:
 #     db.commit()
 # La sessione si accorge da sola di cosa è cambiato.
 
+def leggi_guardia(guardia_id: int, db: Session = Depends(get_db)) -> Guardia:
+    guardia = db.get(GuardiaDB, guardia_id)
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+    return guardia
+
+
+@app.put("/guardie/{guardia_id}")
+def modifica_guardia(guardia_id: int, guardia: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+    guardia_da_modificare = leggi_guardia(guardia_id, db)
+    guardia_da_modificare.nome = guardia.nome
+    guardia_da_modificare.stanza_id = guardia.stanza_id
+    guardia_da_modificare.turno = guardia.turno
+    guardia_da_modificare.anni_servizio = guardia.anni_servizio
+    db.commit()
+    return guardia_da_modificare
 
 
 # ============================================================ EXTRA: nel README
