@@ -147,11 +147,11 @@ def lista_guardie(db: Session = Depends(get_db)) -> list[Guardia]:
 @app.post("/guardie", status_code=201)
 def aggiungi_guardia(nuova_guardia: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
     guardia = GuardiaDB(
-            nome=guardia_nuova.nome, 
-            stanza_id=nuova_guardia.stanza_id, 
-            turno=nuova_guardia.turno, 
-            anni_servizio=nuova_guardia.anni_servizio
-        )
+        nome=nuova_guardia.nome, 
+        stanza_id=nuova_guardia.stanza_id, 
+        turno=nuova_guardia.turno, 
+        anni_servizio=nuova_guardia.anni_servizio
+    )
     
     db.add(guardia)
     db.commit()
