@@ -66,13 +66,17 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
+    ospite = db.get(OspiteDB, ospite_id)
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    return ospite
     # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+    # raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
 
 
 # ============================================================ LIVELLO 2 · add, commit
 # POST /ospiti, con il corpo di un OspiteNuovo -> 201 e l'ospite salvato, con il suo id
-#
+
 # Quattro righe, sempre le stesse:
 #     ospite = OspiteDB(nome=..., professione=...)    l'oggetto nuovo: l'id ancora non c'è
 #     db.add(ospite)                                  nel carrello
