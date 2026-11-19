@@ -58,7 +58,7 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
     return ospiti
 
 
-# ============================================================ LIVELLO 1 · db.get (INSIEME)
+# ============================================================ LIVELLO 1 · db.get (INSIEME) @mio: Ricerca ospite
 # GET /ospiti/{ospite_id} -> 200 e l'ospite, oppure 404 "Ospite non trovato"
 #
 # db.get(OspiteDB, ospite_id) cerca la riga con quella chiave primaria:
@@ -66,11 +66,14 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
-    # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+    ospite = db.get(OspiteDB, ospite_id)
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    return ospite
+    
 
 
-# ============================================================ LIVELLO 2 · add, commit
+# ============================================================ LIVELLO 2 · add, commit. @mio: Crea nuovo ospite 
 # POST /ospiti, con il corpo di un OspiteNuovo -> 201 e l'ospite salvato, con il suo id
 #
 # Quattro righe, sempre le stesse:
@@ -82,7 +85,7 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 
 
 
-# ============================================================ LIVELLO 3 · delete
+# ============================================================ LIVELLO 3 · delete.  @mio: Elimina ospite
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
 #
 # Prima lo cercate (livello 1). Se c'è:
@@ -92,7 +95,7 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 
 
 
-# ============================================================ LIVELLO 4 · modificare
+# ============================================================ LIVELLO 4 · modificare.  @mio: Sostituisci guardia
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova -> 200 e la guardia aggiornata,
 # oppure 404 "Guardia non trovata"
 #
