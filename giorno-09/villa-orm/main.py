@@ -137,3 +137,24 @@ def modifica_guardia(guardia_id: int, dati: GuardiaNuova, db: Session = Depends(
     db.commit()
     return guardia
 # ============================================================ EXTRA: nel README
+
+@app.get("/guardie")
+def lista_guardie(db: Session = Depends(get_db)) -> list[Guardia]:
+    guardie = db.scalars(select(GuardiaDB).order_by(GuardiaDB.id)).all()
+    return guardie
+
+
+@app.post("/guardie", status_code=201)
+def aggiungi_guardia(nuova_guardia: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+    guardia = GuardiaDB(
+            nome=guardia_nuova.nome, 
+            stanza_id=nuova_guardia.stanza_id, 
+            turno=nuova_guardia.turno, 
+            anni_servizio=nuova_guardia.anni_servizio
+        )
+    
+    db.add(guardia)
+    db.commit()
+    db.refresh(guardia)
+    
+    return guardia
