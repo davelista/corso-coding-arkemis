@@ -135,3 +135,29 @@ def modifica_guardia(guardia_id: int, guardia: GuardiaNuova, db: Session = Depen
 
 
 # ============================================================ EXTRA: nel README
+
+#EXTRA 1
+#Chi c'è davanti a una stanza: GET /stanze/{stanza_id}/guardie. 
+# Prima db.get(StanzaDB, stanza_id) per il 404 "Stanza non trovata", 
+# poi select(GuardiaDB).where(GuardiaDB.stanza_id == stanza_id) e db.scalars(…).all().
+
+@app.get("/stanze/{stanze_id}/guardie")
+def guardie_della_stanza(stanza_id = int, db: Session = Depends(get_db)) -> list[Guardia]:
+    stanza = leggi_stanza(stanza_id, db)
+
+
+#1 GET: Restituisce tutte le guardie che lavorano per la villa
+@app.get("/guardie")
+def lista_guardie(db: Session = Depends(get_db)) -> list[Guardia]:
+    guardie = db.scalars(select(GuardiaDB).order_by(GuardiaDB.id)).all()
+    return guardie
+
+#2 POST: Aggiunge una nuova guardia     
+
+@app.post("/guardie", status_code = status.HTTP_201_CREATED)
+def aggiungi_guardia(dati : GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+    nuova_guardia = GuardiaDB(nome = dati.nome, stanza_id = dati.stanza_id, turno = dati.turno, anni_servizio = dati.anni_servizio)
+    db.add(nuova_guardia)
+    db.commit()
+    db.refresh(nuova_guardia)
+    return nuova_guardia
