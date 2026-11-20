@@ -113,7 +113,8 @@ def cancella_ospite(ospite_id: int) -> None:
 @app.put("/guardie/{guardia_id}")
 def aggiorna_guardia(guardia_id: int, dati: GuardiaNuova) -> Guardia:
     with connetti() as conn:
-        guardia = conn.execute("UPDATE guardie SET nome = %s, stanza_id = %s, turno = %s, anni_servizio = %s WHERE id = %s RETURNING *",
+        guardia = conn.execute(
+            "UPDATE guardie SET nome = %s, stanza_id = %s, turno = %s, anni_servizio = %s WHERE id = %s RETURNING *",
             (dati.nome, dati.stanza_id, dati.turno, dati.anni_servizio, guardia_id,)).fetchone()
     if guardia is None:
         raise HTTPException(status_code=404, detail="Guardia non trovata")
