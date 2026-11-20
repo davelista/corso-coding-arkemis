@@ -58,7 +58,7 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
     return ospiti
 
 
-# ============================================================ LIVELLO 1 · db.get (INSIEME)
+# ============================================================ LIVELLO 1 · db.get (INSIEME) @mio: Ricerca ospite
 # GET /ospiti/{ospite_id} -> 200 e l'ospite, oppure 404 "Ospite non trovato"
 #
 # db.get(OspiteDB, ospite_id) cerca la riga con quella chiave primaria:
@@ -66,11 +66,14 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
-    # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+    ospite = db.get(OspiteDB, ospite_id)
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    return ospite
+    
 
 
-# ============================================================ LIVELLO 2 · add, commit
+# ============================================================ LIVELLO 2 · add, commit. @mio: Crea nuovo ospite 
 # POST /ospiti, con il corpo di un OspiteNuovo -> 201 e l'ospite salvato, con il suo id
 #
 # Quattro righe, sempre le stesse:
@@ -80,19 +83,30 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.refresh(ospite)                              riletto: adesso ha l'id
 # Poi lo restituite. Il 201 va nel decoratore, come ieri.
 
+@app.post("/ospiti", status_code = status.HTTP_201_CREATED)
+def aggiungi_ospite(ospite: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
+    nuovo_ospite = OspiteDB(nome = ospite.nome, professione = ospite.professione)
+    db.add(nuovo_ospite)
+    db.commit()
+    db.refresh(nuovo_ospite)
+    return nuovo_ospite
+    
 
-
-# ============================================================ LIVELLO 3 · delete
+# ============================================================ LIVELLO 3 · delete.  @mio: Elimina ospite
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
 #
 # Prima lo cercate (livello 1). Se c'è:
 #     db.delete(ospite)
 #     db.commit()
 # Non restituite niente: il 204 va nel decoratore.
+@app.delete("/ospiti/{ospite_id}", status_code = status.HTTP_204_NO_CONTENT)
+def elimina_ospite(ospite_id: int, db: Session = Depends(get_db)) -> None:
+    ospite = leggi_ospite(ospite_id, db)
+    db.delete(ospite)
+    db.commit()
+    
 
-
-
-# ============================================================ LIVELLO 4 · modificare
+# ============================================================ LIVELLO 4 · modificare.  @mio: Sostituisci guardia
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova -> 200 e la guardia aggiornata,
 # oppure 404 "Guardia non trovata"
 #
@@ -102,6 +116,48 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.commit()
 # La sessione si accorge da sola di cosa è cambiato.
 
+def leggi_guardia(guardia_id: int, db: Session = Depends(get_db)) -> Guardia:
+    guardia = db.get(GuardiaDB, guardia_id)
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+    return guardia
+
+
+@app.put("/guardie/{guardia_id}")
+def modifica_guardia(guardia_id: int, guardia: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+    guardia_da_modificare = leggi_guardia(guardia_id, db)
+    guardia_da_modificare.nome = guardia.nome
+    guardia_da_modificare.stanza_id = guardia.stanza_id
+    guardia_da_modificare.turno = guardia.turno
+    guardia_da_modificare.anni_servizio = guardia.anni_servizio
+    db.commit()
+    return guardia_da_modificare
 
 
 # ============================================================ EXTRA: nel README
+
+#EXTRA 1
+#Chi c'è davanti a una stanza: GET /stanze/{stanza_id}/guardie. 
+# Prima db.get(StanzaDB, stanza_id) per il 404 "Stanza non trovata", 
+# poi select(GuardiaDB).where(GuardiaDB.stanza_id == stanza_id) e db.scalars(…).all().
+
+@app.get("/stanze/{stanze_id}/guardie")
+def guardie_della_stanza(stanza_id = int, db: Session = Depends(get_db)) -> list[Guardia]:
+    stanza = leggi_stanza(stanza_id, db)
+
+
+#1 GET: Restituisce tutte le guardie che lavorano per la villa
+@app.get("/guardie")
+def lista_guardie(db: Session = Depends(get_db)) -> list[Guardia]:
+    guardie = db.scalars(select(GuardiaDB).order_by(GuardiaDB.id)).all()
+    return guardie
+
+#2 POST: Aggiunge una nuova guardia     
+
+@app.post("/guardie", status_code = status.HTTP_201_CREATED)
+def aggiungi_guardia(dati : GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+    nuova_guardia = GuardiaDB(nome = dati.nome, stanza_id = dati.stanza_id, turno = dati.turno, anni_servizio = dati.anni_servizio)
+    db.add(nuova_guardia)
+    db.commit()
+    db.refresh(nuova_guardia)
+    return nuova_guardia
