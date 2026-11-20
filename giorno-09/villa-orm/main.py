@@ -66,13 +66,17 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
+    ospite = db.get(OspiteDB, ospite_id)
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    return ospite
     # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
+    # raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
 
 
 # ============================================================ LIVELLO 2 · add, commit
 # POST /ospiti, con il corpo di un OspiteNuovo -> 201 e l'ospite salvato, con il suo id
-#
+
 # Quattro righe, sempre le stesse:
 #     ospite = OspiteDB(nome=..., professione=...)    l'oggetto nuovo: l'id ancora non c'è
 #     db.add(ospite)                                  nel carrello
@@ -80,7 +84,24 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.refresh(ospite)                              riletto: adesso ha l'id
 # Poi lo restituite. Il 201 va nel decoratore, come ieri.
 
-
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def nuovo_ospite(dati: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
+    
+    # oggetto nuovo
+    ospite = OspiteDB(nome=dati.nome, professione=dati.professione)
+    #per non mettere tutti i dati a mano usa model_dump() tranne nel PUT
+    #ospite = OspiteDB(**dati.model_dump())
+    
+    # aggiungo a sessione
+    db.add(ospite)
+    
+    # salvo
+    db.commit()
+    
+    # refresh id
+    db.refresh(ospite)
+    
+    return ospite
 
 # ============================================================ LIVELLO 3 · delete
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
@@ -89,9 +110,19 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.delete(ospite)
 #     db.commit()
 # Non restituite niente: il 204 va nel decoratore.
+@app.delete("/ospiti/{ospite_id}", status_code=status.HTTP_204_NO_CONTENT)
+#dobbiamo indicare -> None per specificare cosa deve ritornare
+def del_ospite(ospite_id: int, db: Session = Depends(get_db))-> None:
 
+    #chiedo alla sessione
+    ospite = db.get(OspiteDB, ospite_id)
+    #controllo
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
 
-
+    db.delete(ospite)
+    db.commit()
+    
 # ============================================================ LIVELLO 4 · modificare
 # PUT /guardie/{guardia_id}, con il corpo di una GuardiaNuova -> 200 e la guardia aggiornata,
 # oppure 404 "Guardia non trovata"
@@ -102,6 +133,57 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.commit()
 # La sessione si accorge da sola di cosa è cambiato.
 
+@app.put("/guardie/{guardia_id}")
+def modifica_guardia(guardia_id:int, dati: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+
+    guardia = db.get(GuardiaDB, guardia_id)        
+    #controllo
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+
+    guardia.nome = dati.nome
+    guardia.stanza_id = dati.stanza_id
+    guardia.turno = dati.turno
+    guardia.anni_servizio = dati.anni_servizio
+
+    db.commit()
+
+    return guardia
+
+    
+
 
 
 # ============================================================ EXTRA: nel README
+"""
+1. **Chi c'è davanti a una stanza:** `GET /stanze/{stanza_id}/guardie`. Prima `db.get(StanzaDB, stanza_id)` per il 404 `"Stanza non trovata"`, poi `select(GuardiaDB).where(GuardiaDB.stanza_id == stanza_id)` e `db.scalars(…).all()`
+"""
+@app.get("/stanze/{stanza_id}/guardie")
+def guardie_in_stanza(stanza_id: int, db: Session = Depends(get_db)) -> list[Guardia]:
+
+    # verifico se la stanza esiste
+    stanza = db.get(StanzaDB, stanza_id)    
+    if stanza is None:
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+
+    # cerco le guardie nella stanza
+    guardie = db.scalars(select(GuardiaDB)
+           .where(GuardiaDB.stanza_id == stanza_id)).all()
+
+    return guardie
+
+
+
+
+
+
+
+
+
+"""
+2. **Il 409 del nome:** `POST /ospiti` con un nome già in lista. Il database dice di no (`UNIQUE`), e in Python arriva al `db.commit()` come `IntegrityError` (da `sqlalchemy.exc`). Prendetela con `try/except`, fate `db.rollback()` e rispondete 409 `"Nome già in lista"`
+"""
+
+"""
+3. **La stanza che non c'è:** `PUT /guardie/3` con `stanza_id` 42 → 404 `"Stanza non trovata"`. Controllate con `db.get(StanzaDB, dati.stanza_id)` prima di cambiare la guardia
+"""
