@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Il bazar di Agrabah · la pagina da ricreare</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; }
+      body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.5; }
+      main { min-height: 100vh; background: #fef3c7; padding: 2rem; color: #1e1b4b; }
+      header { text-align: center; }
+      h1 { font-size: 2.25rem; line-height: 2.5rem; font-weight: 700; }
+      .barra { margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+      button { font: inherit; color: inherit; background: transparent; border: 0; padding: 0.5rem 1rem; border-radius: 0.25rem; }
+      .lampada { background: #1e1b4b; color: #ffffff; }
+      .lampada:disabled { opacity: 0.4; }
+      .filtro { border: 2px solid #1e1b4b; }
+      section { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+      article { width: 14rem; border: 2px solid #1e1b4b; border-radius: 0.5rem; padding: 1rem; }
+      article.maledetto { border-color: #b91c1c; }
+      h3 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; }
+      footer { margin-top: 2rem; text-align: center; font-size: 0.875rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Il bazar di Agrabah</h1>
+        <p>Tesori da tutto il deserto</p>
+      </header>
+      <div class="barra">
+        <button class="lampada" id="lampada"></button>
+        <button class="filtro" id="filtro"></button>
+        <p id="conta"></p>
+      </div>
+      <section id="vetrina"></section>
+      <footer>
+        <p>Aperto dall'alba al tramonto</p>
+      </footer>
+    </main>
+    <script>
+      const tesori = [
+        { id: 1, nome: "Lampada a olio", valore: 3, maledetto: false },
+        { id: 2, nome: "Tappeto volante", valore: 800, maledetto: false },
+        { id: 3, nome: "Rubino della scimmia", valore: 1200, maledetto: true },
+        { id: 4, nome: "Scarabeo d'oro", valore: 450, maledetto: false },
+        { id: 5, nome: "Clessidra rossa", valore: 600, maledetto: true },
+        { id: 6, nome: "Flauto del mercante", valore: 40, maledetto: false },
+      ];
+      let desideri = 3;
+      let nascosti = false;
+
+      const lampada = document.querySelector("#lampada");
+      const filtro = document.querySelector("#filtro");
+      const conta = document.querySelector("#conta");
+      const vetrina = document.querySelector("#vetrina");
+
+      function disegna() {
+        const visibili = nascosti ? tesori.filter((t) => !t.maledetto) : tesori;
+        lampada.textContent = `Esprimi un desiderio (${desideri})`;
+        lampada.disabled = desideri === 0;
+        filtro.textContent = nascosti ? "Mostra tutti" : "Nascondi i maledetti";
+        conta.textContent = `${visibili.length} tesori in vetrina`;
+        vetrina.replaceChildren();
+        for (const t of visibili) {
+          const scheda = document.createElement("article");
+          if (t.maledetto) scheda.classList.add("maledetto");
+          const nome = document.createElement("h3");
+          nome.textContent = t.nome;
+          const valore = document.createElement("p");
+          valore.textContent = `${t.valore} monete`;
+          const stato = document.createElement("p");
+          stato.textContent = t.maledetto ? "Maledetto" : "Sicuro";
+          scheda.append(nome, valore, stato);
+          vetrina.append(scheda);
+        }
+      }
+
+      lampada.addEventListener("click", () => { desideri = desideri - 1; disegna(); });
+      filtro.addEventListener("click", () => { nascosti = !nascosti; disegna(); });
+      disegna();
+    </script>
+  </body>
+</html>
