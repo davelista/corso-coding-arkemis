@@ -82,12 +82,19 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 # Poi lo restituite. Il 201 va nel decoratore, come ieri.
 @app.post("/ospiti", status_code=status.HTTP_201_CREATED)
 def aggiungi_ospite(body: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
-    ospite = OspiteDB(**body.model_dump())
-    db.add(ospite)
-    db.commit()
-    db.refresh(ospite)
-
-    return ospite
+    # ospites = db.scalars(OspiteDB).all()
+    # for o in ospites:
+    #     if o["nome"] == body.nome:
+    #         raise HTTPException(status_code=409, detail="Nome già in lista")
+    try:
+        ospite = OspiteDB(**body.model_dump())
+        db.add(ospite)
+        db.commit()
+        db.refresh(ospite)
+    
+        return ospite
+    except:
+        raise HTTPException(status_code=409, detail="Nome già in lista")
 
 # ============================================================ LIVELLO 3 · delete
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
@@ -128,3 +135,15 @@ def aggiorna_ospite(guardia_id: int, dati: GuardiaNuova, db: Session = Depends(g
 
 
 # ============================================================ EXTRA: nel README
+
+# GET /stanze/{stanza_id}/guardie, trova la guardia o le guardie nella stanza (stanza_id)
+# Prima cerchiamo in StanzaDB se esiste quella stanza, poi cerchiamo la guardia in GuardieDB
+@app.get("/stanze/{stanza_id}/guardie", status_code=status.HTTP_200_OK)
+def guardia_stanza(stanza_id: int, db: Session = Depends(get_db)) -> list[Guardia]:
+    guardia = db.get(StanzaDB, stanza_id)
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Stanza non trovata")
+
+    guardie = db.scalars(select(GuardiaDB).where(GuardiaDB.stanza_id == stanza_id)).all()
+    return guardie
+
