@@ -66,9 +66,10 @@ def lista_ospiti(db: Session = Depends(get_db)) -> list[Ospite]:
 
 @app.get("/ospiti/{ospite_id}")
 def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
-    # TODO: al posto di questa riga, il vostro codice.
-    raise HTTPException(status_code=501, detail="Livello 1: ancora da fare")
-
+    ospite = db.get(OspiteDB, ospite_id)
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    return ospite
 
 # ============================================================ LIVELLO 2 · add, commit
 # POST /ospiti, con il corpo di un OspiteNuovo -> 201 e l'ospite salvato, con il suo id
@@ -79,8 +80,14 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.commit()                                     consegnato: adesso è nel database
 #     db.refresh(ospite)                              riletto: adesso ha l'id
 # Poi lo restituite. Il 201 va nel decoratore, come ieri.
+@app.post("/ospiti", status_code=status.HTTP_201_CREATED)
+def aggiungi_ospite(body: OspiteNuovo, db: Session = Depends(get_db)) -> Ospite:
+    ospite = OspiteDB(**body.model_dump())
+    db.add(ospite)
+    db.commit()
+    db.refresh(ospite)
 
-
+    return ospite
 
 # ============================================================ LIVELLO 3 · delete
 # DELETE /ospiti/{ospite_id} -> 204 senza corpo, oppure 404 "Ospite non trovato"
@@ -89,7 +96,13 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     db.delete(ospite)
 #     db.commit()
 # Non restituite niente: il 204 va nel decoratore.
-
+@app.delete("/ospiti/{ospite_id}", status_code=status.HTTP_204_NO_CONTENT)
+def elimina_ospite(ospite_id: int, db: Session = Depends(get_db)) -> None:
+    ospite = db.get(OspiteDB, ospite_id)
+    if ospite is None:
+        raise HTTPException(status_code=404, detail="Ospite non trovato")
+    db.delete(ospite)
+    db.commit()
 
 
 # ============================================================ LIVELLO 4 · modificare
@@ -101,7 +114,17 @@ def leggi_ospite(ospite_id: int, db: Session = Depends(get_db)) -> Ospite:
 #     ... (un attributo per riga, tutti e quattro)
 #     db.commit()
 # La sessione si accorge da sola di cosa è cambiato.
+@app.put("/guardie/{guardia_id}", status_code=status.HTTP_200_OK)
+def aggiorna_ospite(guardia_id: int, dati: GuardiaNuova, db: Session = Depends(get_db)) -> Guardia:
+    guardia = db.get(GuardiaDB, guardia_id)
+    if guardia is None:
+        raise HTTPException(status_code=404, detail="Guardia non trovata")
+    guardia.nome = dati.nome
+    guardia.stanza_id = dati.stanza_id
+    guardia.anni_servizio = dati.anni_servizio
+    db.commit()
 
+    return guardia
 
 
 # ============================================================ EXTRA: nel README
