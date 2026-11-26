@@ -9,11 +9,13 @@ import Bottone from "./components/Bottone";
 export default function Home() {
   return (
       <main className="min-h-screen bg-slate-900 p-8 text-slate-100">
-        <Header />
-        <Pergamena>
-          Stanotte l'ombra di Peter è scappata. Campanellino ha segnato sei luoghi:cerchiamola!
-        </Pergamena>
-        <ListaLuoghi/>
+        <div className="mx-auto max-w-5xl">
+          <Header />
+          <Pergamena>
+            Stanotte l'ombra di Peter è scappata. Campanellino ha segnato sei luoghi:cerchiamola!
+          </Pergamena>
+          <ListaLuoghi/>
+        </div>
       </main>
     );
 }

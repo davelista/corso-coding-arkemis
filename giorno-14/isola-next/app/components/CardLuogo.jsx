@@ -12,7 +12,7 @@ export default function CardLuogo({nome, descrizione, zona="Isola che non c'è",
                 disabled={esplorato}
                 variante={esplorato ? "secondario" : "primario"}
             >
-                {esplorato ? "Già visto" : "Cerca qui"}
+                {esplorato ? "Già esplorato" : "Cerca qui"}
             </Bottone>
         </article>
     
