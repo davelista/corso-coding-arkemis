@@ -1,0 +1,1 @@
+Sono Debora, uso MacOS ecco lo screen
