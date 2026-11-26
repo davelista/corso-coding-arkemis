@@ -10,4 +10,4 @@ Il numero 1 è chi si sente meno sicuro, e inizia alla tastiera. Chi non è alla
 
 La tappa 7 la scrivete a turno: una parte a testa (il controllo in `minuti`, il `raise`, il `try/except` in `soste`).
 
-Dove è nascosto l'Anello: ancora da scoprire
+Dove è nascosto l'Anello: Giardino
