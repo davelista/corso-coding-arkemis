@@ -22,6 +22,7 @@ Il repository del corso. Ogni giorno compare una cartella nuova: `giorno-01`, `g
 | 9 | SQLAlchemy e il biglietto d'oro | [giorno-09](giorno-09) |
 | 10 | Chiave e biglietto | [giorno-10](giorno-10) |
 | 11 | La lampada di Agrabah, e il frontend | [giorno-11](giorno-11) |
+| 14 | React con Next.js: l'ombra di Peter Pan | [giorno-14](giorno-14) |
 
 ## La prima volta
 
