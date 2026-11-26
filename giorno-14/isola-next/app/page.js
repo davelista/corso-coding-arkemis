@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Pergamena from "./components/Pergamena";
 import CardLuogo from "./components/CardLuogo";
 import ListaLuoghi from "./components/ListaLuoghi";
+import Bottone from "./components/Bottone";
 
 export default function Home() {
   return (
