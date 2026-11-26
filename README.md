@@ -23,6 +23,7 @@ Il repository del corso. Ogni giorno compare una cartella nuova: `giorno-01`, `g
 | 10 | Chiave e biglietto | [giorno-10](giorno-10) |
 | 11 | La lampada di Agrabah, e il frontend | [giorno-11](giorno-11) |
 | 14 | React con Next.js: l'ombra di Peter Pan | [giorno-14](giorno-14) |
+| 15 | Lo stato, e il tè dei matti | [giorno-15](giorno-15) |
 
 ## La prima volta
 

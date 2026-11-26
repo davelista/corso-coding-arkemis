@@ -1,0 +1,20 @@
+import { Header, Pergamena, ListaLuoghi, Finale, Footer } from "./components";
+
+export default function Home() {
+  const ritrovata = true; // false finché la caccia non è finita
+
+  return (
+    <main className="min-h-screen bg-slate-900 p-8 text-slate-100">
+      <div className="mx-auto max-w-5xl">
+        <Header />
+        <Pergamena>
+          <p>Stanotte l'ombra di Peter è scappata. Campanellino ha
+            segnato sei luoghi sulla mappa: cerchiamola!</p>
+        </Pergamena>
+        <ListaLuoghi />
+        {ritrovata && <Finale luogo="Londra" />}
+        <Footer />
+      </div>
+    </main>
+  );
+}
