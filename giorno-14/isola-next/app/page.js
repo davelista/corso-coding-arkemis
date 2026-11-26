@@ -9,6 +9,7 @@ import {
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-900 p-8 text-slate-100">
+      <div className="mx-auto max-w-5xl">
       <Header />
       <Pergamena>
         <p>
@@ -18,6 +19,7 @@ export default function Home() {
       </Pergamena>
       <ListaLuoghi />
       <Footer />
+      </div>
     </main>
   );
 }
