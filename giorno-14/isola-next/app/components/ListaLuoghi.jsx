@@ -6,6 +6,7 @@ export default function ListaLuoghi() {
     <>
       {luoghi.map((luogo) => (
         <CardLuogo
+          indizio={luogo.indizio}
           key={luogo.id}
           zona={luogo.zona}
           nome={luogo.nome}
