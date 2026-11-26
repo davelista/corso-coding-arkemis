@@ -8,3 +8,10 @@
 -- Scrivi la tua query qui sotto, finisci con il punto e virgola e salva.
 -- Poi, dalla cartella pirati:   python3 verifica.py 9
 
+SELECT na.nome, na.capitano, ar.bottino
+FROM navi na
+JOIN arrembaggi ar ON na.id = ar.nave_id
+WHERE ar.bottino = (
+  SELECT MAX(bottino)
+  FROM arrembaggi
+)
