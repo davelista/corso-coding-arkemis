@@ -11,6 +11,7 @@ export default function ListaLuoghi() {
           nome={luogo.nome}
           zona={luogo.zona}
           indizio={luogo.indizio}
+          esplorato={luogo.esplorato}
         />
       ))}
     </div>
