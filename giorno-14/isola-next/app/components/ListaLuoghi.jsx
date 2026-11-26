@@ -3,7 +3,7 @@ import { luoghi } from "../dati";
 
 export default function ListaLuoghi() {
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 gap-4 border-solid-700  ">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 gap-4 border-solid-700 mb-5 ">
       {luoghi.map((luogo) => (
         <CardLuogo
           key={luogo.id}
