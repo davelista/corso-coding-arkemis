@@ -10,6 +10,7 @@ export default function ListaLuoghi() {
           descrizione={luogo.descrizione}
           nome={luogo.nome}
           zona={luogo.zona}
+          indizio={luogo.indizio}
         />
       ))}
     </div>
