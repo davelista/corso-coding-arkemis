@@ -1,4 +1,4 @@
-export default function CardLuogo({nome = "Isola", descrizione = "seconda stella a destra", zona = "Isola che non c'è"}) {
+export default function CardLuogo({nome, descrizione, zona}) {
     return (
         <article className="p-5 border-2 border-slate-600 bg-slate-800">
             <p className="text-xs text-yellow-400 uppercase mb-2">{zona}</p>

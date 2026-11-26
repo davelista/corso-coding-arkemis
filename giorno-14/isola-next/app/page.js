@@ -9,9 +9,9 @@ export default function Home() {
       <Header />
       <Pergamena/>
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 border-solid-700  ">
-        <CardLuogo luogo={{ nome: "Luogo 1", descrizione: "Descrizione del luogo 1" }} />
-        <CardLuogo luogo={{ nome: "Luogo 2", descrizione: "Descrizione del luogo 2" }} />
-        <CardLuogo luogo={{ nome: "Luogo 3", descrizione: "Descrizione del luogo 3" }} />
+        <CardLuogo nome = "Isola" descrizione = "seconda stella a destra" zona = "Isola che non c'è"/>
+        <CardLuogo nome = "Isola" descrizione = "seconda stella a destra" zona = "Isola che non c'è"/>
+        <CardLuogo nome = "Isola" descrizione = "seconda stella a destra" zona = "Isola che non c'è"/>
       </div>
       <Footer />
     </main>
