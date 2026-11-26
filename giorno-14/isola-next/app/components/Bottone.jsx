@@ -1,9 +1,10 @@
 "use client"
 
 export default function Bottone ({children, messaggio, variante="primario", disabled=false}) {
+    const colore = variante==="primario"?"bg-slate-400 text-white" : "bg-amber-700 text-black"
     return (
-        <button className="mt-4 rounded-lg px-4 py-2 font-semibold border-2 bg-amber-700" onClick = {() => alert(messaggio)}>
-            Cerca qui!
+        <button disabled={disabled} className={`mt-4 rounded-lg px-4 py-2 font-semibold border-2 ${colore}`} onClick = {() => alert(messaggio)}>
+            {disabled?"Già esplorato" : "Cerca qui"}
         </button>
     )
 }  

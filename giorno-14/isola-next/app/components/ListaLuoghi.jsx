@@ -11,6 +11,7 @@ export default function ListaLuoghi() {
           zona={luogo.zona}
           nome={luogo.nome}
           descrizione={luogo.descrizione}
+          esplorato={luogo.esplorato}
         />
       ))}
     </>
