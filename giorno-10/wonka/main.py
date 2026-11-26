@@ -76,7 +76,14 @@ def lista_sale(db: Session = Depends(get_db)) -> list[SalaInVetrina]:
 # - Nel database va l'impronta, non la password. In sicurezza.py c'è la funzione che la calcola.
 # - Nella tabella il campo si chiama password_hash (guardate modelli.py).
 
-
+@app.post("/registra_bambino", status_code=status.HTTP_201_CREATED)
+def registra_bambino(body: BambinoNuovo, db: Session = Depends(get_db)) -> Bambino:
+    nuovo_bambino = BambinoDB(username=body.username, nome=body.nome, password_hash=calcola_hash(body.password))
+    db.add(nuovo_bambino)
+    db.commit()
+    db.refresh(nuovo_bambino)
+    bambino_creato = Bambino(id=nuovo_bambino.id, username=nuovo_bambino.username, nome=nuovo_bambino.nome)
+    return bambino_creato
 
 # ============================================================ LIVELLO 2 · IL BIGLIETTO D'ORO
 # POST /login, con il corpo di Credenziali (username e password, in JSON) -> il Biglietto
@@ -87,7 +94,16 @@ def lista_sale(db: Session = Depends(get_db)) -> list[SalaInVetrina]:
 # - In sicurezza.py: una funzione controlla la password, un'altra crea il biglietto.
 # - La risposta è uno stampo Biglietto: access_token e token_type (che vale "bearer").
 
+@app.post("/login", status_code=status.HTTP_201_CREATED)
+def login(body: Credenziali, db: Session=Depends(get_db)) -> Biglietto:
+    bambino = db.scalar(select(BambinoDB).where(BambinoDB.username == body.username))
 
+    if bambino is None or not password_giusta(body.password, bambino.password_hash):
+        raise HTTPException(status_code=401, detail="User o password errata")
+
+    nuovo_biglietto = Biglietto(access_token=crea_biglietto(bambino.id), token_type="bearer")
+
+    return nuovo_biglietto
 
 # ============================================================ LIVELLO 3 · CHI SONO?
 # GET /me -> 200 e il Bambino del biglietto. Senza biglietto, o con un biglietto falso: 401.
@@ -96,6 +112,10 @@ def lista_sale(db: Session = Depends(get_db)) -> list[SalaInVetrina]:
 # - Il biglietto lo controlla il controllore di sicurezza.py: lo chiedete con Depends, nel def.
 # - Il 401 non lo scrivete voi.
 
+@app.get("/me")
+def leggi_info(db: Session=Depends(get_db)) -> Bambino:
+    bambino = bambino_corrente(db)
+    return Bambino(id=bambino.id, username=bambino.username, nome=bambino.nome)
 
 
 # ============================================================ LIVELLO 4 · LE SALE
@@ -104,7 +124,14 @@ def lista_sale(db: Session = Depends(get_db)) -> list[SalaInVetrina]:
 #
 # Indizio: è il livello 1 della villa (ieri), più il controllore del livello 3.
 
-
+@app.get("/sale/{sala_id}")
+def leggi_sala(sala_id: int, db: Session = Depends(get_db), bambino: BambinoDB = Depends(bambino_corrente)) -> Sala:
+    sala = db.get(SalaDB, sala_id)
+    if bambino is None:
+        raise HTTPException(status_code=401, detail="Biglietto non valito")
+    if sala is None:
+        raise HTTPException(status_code=404, detail="Sala non trovata")
+    return Sala(id=sala.id, nome=sala.nome, descrizione=sala.descrizione, ingrediente=sala.ingrediente)
 
 # ============================================================ IL FINALE (già fatto, non si tocca)
 # Visitate le cinque sale, segnate la prima lettera di ogni ingrediente, in ordine di sala:

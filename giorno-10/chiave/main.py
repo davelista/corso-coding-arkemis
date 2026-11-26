@@ -54,10 +54,14 @@ def ingresso() -> dict:
 #    e nella risposta, al posto di MAGAZZINO:
 #        {"fornitore": fornitore, "magazzino": MAGAZZINO}
 
-def controlla_chiave(chiave: str | None = Header(default=None, alias="X-API-Key")) -> str:
-    ...
+def controlla_chiave(api_key: str | None = Header(default=None, alias="X-API-Key")) -> str:
+    if api_key is None:
+        raise HTTPException(status_code=401, detail="Manca la chiave")
+    if api_key != CHIAVE_MAGAZZINO:
+        raise HTTPException(status_code=401, detail="API_KEY sbagliata")
+    return FORNITORE
 
 
 @app.get("/magazzino")
-def leggi_magazzino() -> dict:
-    return MAGAZZINO
+def leggi_magazzino(fornitore: str = Depends(controlla_chiave)) -> dict:
+    return {"fornitore": fornitore, "magazzino": MAGAZZINO} # Va bene anche solo: return MAGAZZINO
