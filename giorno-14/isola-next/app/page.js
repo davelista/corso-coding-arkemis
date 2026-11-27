@@ -7,7 +7,7 @@ import {
 } from "./components/index";
 
 export default function Home() {
-  const ritrovata = false;
+  const ritrovata = true;
 
   return (
     <main className="min-h-screen bg-slate-900 p-8 text-slate-100">
