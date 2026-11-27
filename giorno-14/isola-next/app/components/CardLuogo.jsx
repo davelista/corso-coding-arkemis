@@ -8,7 +8,7 @@ export default function CardLuogo({
   descrizione,
   zona = "L'Isola che non c'è",
   indizio,
-  esplorato = false
+  esplorato = false,
 }) {
   const [indizioAperto, setIndizioAperto] = useState(false);
 
@@ -16,23 +16,32 @@ export default function CardLuogo({
     setIndizioAperto(!indizioAperto);
   }
 
+  let scritta = "Cerca qui";
+  if (indizioAperto) {
+    scritta = "Chiudi";
+  } else {
+    scritta = "Apri indizio";
+  }
+  if (esplorato) {
+    scritta = "Già esplorato";
+  }
+
   return (
     <article className="p-5 border-2 border-slate-600 bg-slate-800">
-      <p className="text-xs text-yellow-400 uppercase mb-2">
-        {zona}
-      </p>
+      <p className="text-xs text-yellow-400 uppercase mb-2">{zona}</p>
 
       <h2 className="text-xl font-bold mb-2">{nome}</h2>
 
       <p className="text-slate-400 mb-3">{descrizione}</p>
 
-      {indizioAperto && <p>{indizio}</p>}
+      {indizioAperto && <p className="mt-4 italic text-amber-200">{indizio}</p>}
 
       <Bottone
         onClick={apri_indizio}
-        disabled={indizioAperto}
+        variante={esplorato ? "secondario" : "primario"}
+        disabled={esplorato}
       >
-        {indizioAperto ? "Indizio aperto" : "Apri indizio"}
+        {scritta}
       </Bottone>
     </article>
   );
