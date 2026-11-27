@@ -6,6 +6,8 @@ import CardLuogo from "./components/CardLuogo";
 import ListaLuoghi from "./components/ListaLuoghi";
 import Bottone from "./components/Bottone";
 import Finale from "./components/Finale";
+import PolvereDiFata from "./components/PolvereDiFata";
+
 
 export default function Home() {
   const ritrovata = false;
@@ -17,6 +19,7 @@ export default function Home() {
           Stanotte l'ombra di Peter è scappata. Campanellino ha segnato sei
           luoghi:cerchiamola!
         </Pergamena>
+        <PolvereDiFata/>
         <ListaLuoghi />
         {ritrovata && <Finale luogo="Londra" />}
         <Footer />

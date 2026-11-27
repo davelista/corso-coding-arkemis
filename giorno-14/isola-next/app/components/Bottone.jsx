@@ -1,7 +1,7 @@
 "use client";
 
 export default function Bottone({
-    children, messaggio, variante = "primario", disabled=false,
+    children, messaggio, variante = "primario", disabled=false, onClick,
 }) {
     const colori = variante === "primario"
     ? "bg-amber-300 text-slate-900"
@@ -11,7 +11,7 @@ export default function Bottone({
         <button
             type="button"
             disabled={disabled}
-            onClick={() => alert(messaggio)}
+            onClick={onClick}
             className={`mt-4 rounded-lg px-4 py-2 font-semibold ${colori}`}
         >
             {children}
