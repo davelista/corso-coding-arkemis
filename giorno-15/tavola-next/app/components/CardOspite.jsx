@@ -1,12 +1,13 @@
-export default function CardOspite({nome, specie, dove, invitato}) {
+export default function CardOspite({nome, specie, dove, invitato, onInvita}) {
     return (
-        <article className="border-1 mt-5 p-4">
-            <p className="text-sm uppercase mb-2">{specie}</p>
-            <h2 className="text-xl font-bold mb-2">{nome}</h2>
-            <p className="mb-3">{dove}</p>
-            <div className="bg-amber-700 border-2 mb-2">
-                <p>{invitato ? "A tavola" : "Non invitato"}</p>
+        <article className="bg-amber-900 border-2 rounded-md p-8 text-center">
+            <p>{specie}</p>
+            <h2 className="text-2xl">{nome}</h2>
+            <p>{dove}</p>
+            <div className="bg-slate-500 border-4 rounded-b-md text">
+                {invitato ? "A tavola" : "Non invitato"}
             </div>
+            {!invitato && <button onClick={onInvita}>Invita</button>}
         </article>
     )
 }
