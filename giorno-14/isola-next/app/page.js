@@ -4,6 +4,7 @@ import {
   ListaLuoghi,
   Footer,
   Finale,
+  PolvereDiFata
 } from "./components/index";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
             luoghi: cerchiamola!
           </p>
         </Pergamena>
+        <PolvereDiFata />
         <ListaLuoghi />
         {ritrovata && <Finale luogo="Londra" />}
         <Footer />
