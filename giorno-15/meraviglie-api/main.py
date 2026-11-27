@@ -16,12 +16,12 @@ from pydantic import BaseModel
 app = FastAPI(title="Il Paese delle Meraviglie")
 
 # ESERCIZIO 3 · CORS: togliete il # dalle sei righe qui sotto, poi salvate.
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:3000"],
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class Invito(BaseModel):
