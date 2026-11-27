@@ -1,4 +1,6 @@
-import Tavola from "./components/Tavola";
+import {
+  Tavola, CardOspite
+} from "./components";
 
 export default function Home() {
   return (
